@@ -12,40 +12,44 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/et_viagem_nome"
-        android:hint="@string/et_nome_viagem" />
+        android:hint="@string/et_nome_viagem"
+        android:inputType="textPersonName" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/et_descricao"
         android:hint="@string/et_descricao"
-        android:layout_weight="0.50" />
+        android:layout_weight="0.50"
+        android:inputType="textMultiLine" />
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="0.10"
-        android:layout_marginTop="10dp"
         android:layout_gravity="center_horizontal">
 
-        <TextView
+        <EditText
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/et_comeco_viagem"
-            android:id="@+id/tv_comeco"
-            android:onClick="showDatePickerDialog" />
+            android:layout_height="wrap_content"
+            android:editable="false"
+            android:ems="10"
+            android:id="@+id/et_data_comeco"
+            android:hint="@string/et_comeco_viagem"
+            android:layout_weight=".5"
+            android:onClick="showDatePickerDialog"
+            android:focusable="false" />
 
-        <TextView
+        <EditText
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/et_fim_viagem"
-            android:id="@+id/tv_fim"
-            android:layout_marginLeft="20dp"
-            android:onClick="showDatePickerDialog" />
-
+            android:layout_height="wrap_content"
+            android:editable="false"
+            android:ems="10"
+            android:id="@+id/et_data_fim"
+            android:hint="@string/et_fim_viagem"
+            android:layout_weight=".5"
+            android:onClick="showDatePickerDialog"
+            android:focusable="false"/>
     </LinearLayout>
 
     <TextView

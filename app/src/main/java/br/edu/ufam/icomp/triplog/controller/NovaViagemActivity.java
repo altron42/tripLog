@@ -1,45 +1,57 @@
 package br.edu.ufam.icomp.triplog.controller;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.app.DialogFragment;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 import br.edu.ufam.icomp.triplog.R;
-import br.edu.ufam.icomp.triplog.controller.fragments.DatePickerFragment;
 import br.edu.ufam.icomp.triplog.dao.ViagemDAO;
 import br.edu.ufam.icomp.triplog.model.Viagem;
 
-public class NovaViagemActivity extends FragmentActivity implements DatePickerDialog.OnDateSetListener {
+public class NovaViagemActivity extends Activity {
 
-    private TextView tv_comeco = (TextView) findViewById(R.id.tv_comeco);
-    private TextView tv_fim = (TextView) findViewById(R.id.tv_fim);
+    private EditText et_comeco;
+    private EditText et_fim;
 
     private SimpleDateFormat dateFormat;
+
+    private Calendar nova_data;
+
+    private DatePickerDialog datePicker_comeco;
+    private DatePickerDialog datePicker_fim;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nova_viagem);
 
-        dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        et_comeco = (EditText) findViewById(R.id.et_data_comeco);
+        et_fim = (EditText) findViewById(R.id.et_data_fim);
 
-        EditText et_comeco = (EditText) findViewById(R.id.et_comeco_viagem);
-        et_comeco.setInputType(InputType.TYPE_NULL);
-        EditText et_fim = (EditText) findViewById(R.id.et_fim_viagem);
-        et_fim.setInputType(InputType.TYPE_NULL);
+        dateFormat = new SimpleDateFormat("dd/MM/yyyy", new Locale("pt","BR"));
+
+        nova_data = Calendar.getInstance();
+
+        datePicker_comeco = new DatePickerDialog(this, listener_comeco,
+                nova_data.get(Calendar.YEAR),
+                nova_data.get(Calendar.MONTH),
+                nova_data.get(Calendar.DAY_OF_MONTH));
+
+        datePicker_fim = new DatePickerDialog(this,listener_fim,
+                nova_data.get(Calendar.YEAR),
+                nova_data.get(Calendar.MONTH),
+                nova_data.get(Calendar.DAY_OF_MONTH));
     }
 
     @Override
@@ -64,14 +76,24 @@ public class NovaViagemActivity extends FragmentActivity implements DatePickerDi
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+    private DatePickerDialog.OnDateSetListener listener_comeco = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            nova_data.set(year, monthOfYear, dayOfMonth);
+            et_comeco.setText(dateFormat.format(nova_data.getTime()));
+        }
+    };
 
-    }
+    private DatePickerDialog.OnDateSetListener listener_fim = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            nova_data.set(year, monthOfYear, dayOfMonth);
+            et_fim.setText(dateFormat.format(nova_data.getTime()));
+        }
+    };
 
     public void showDatePickerDialog(View view) {
-        DialogFragment fragment = new DatePickerFragment();
-        fragment.show(getFragmentManager(), "datePicker");
+        if (view == et_comeco) { datePicker_comeco.show(); } else { datePicker_fim.show(); }
     }
 
     public void concluirClicado(View view) {
@@ -100,15 +122,15 @@ public class NovaViagemActivity extends FragmentActivity implements DatePickerDi
 
         viagem.setDetalhes(et_descricao.getText().toString());
 
-        if (!tv_comeco.getText().toString().isEmpty())
-            viagem.setComeco(tv_comeco.getText().toString());
+        if (!et_comeco.getText().toString().isEmpty())
+            viagem.setComeco(et_comeco.getText().toString());
         else {
             Toast.makeText(getApplicationContext(), "Coloque a data do começo", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (!tv_fim.getText().toString().isEmpty())
-            viagem.setFim(tv_fim.getText().toString());
+        if (!et_fim.getText().toString().isEmpty())
+            viagem.setFim(et_fim.getText().toString());
         else {
             Toast.makeText(getApplicationContext(), "Voce nao colocou o fim da viagem", Toast.LENGTH_SHORT).show();
             return;

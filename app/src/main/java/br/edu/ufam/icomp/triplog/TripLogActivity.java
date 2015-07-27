@@ -11,7 +11,14 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import br.edu.ufam.icomp.triplog.controller.NovaViagemActivity;
 import br.edu.ufam.icomp.triplog.dao.ViagemDAO;
@@ -21,6 +28,9 @@ import br.edu.ufam.icomp.triplog.util.BancoDeDados;
 public class TripLogActivity extends ListActivity {
     private ViagemDAO viagemDAO;
     private SimpleCursorAdapter viagens;
+
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    private DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL, new Locale("pt", "BR"));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +66,28 @@ public class TripLogActivity extends ListActivity {
                     } else {
                         int resource = getResources().getIdentifier(nome_imagem, "drawable", null);
                         iv_icone.setImageResource(resource);
+                    }
+                    return true;
+                }
+                if (columnIndex == cursor.getColumnIndex(BancoDeDados.VIAGEM_COL_COMECO)) {
+                    String cursor_data = cursor.getString(columnIndex);
+                    Date date = null;
+                    try {
+                        date = sdf.parse(cursor_data);
+                        ((TextView) view).setText("Começo: " + dateFormat.format(date));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    return true;
+                }
+                if (columnIndex == cursor.getColumnIndex(BancoDeDados.VIAGEM_COL_FIM)) {
+                    String cursor_data = cursor.getString(columnIndex);
+                    Date date = null;
+                    try {
+                        date = sdf.parse(cursor_data);
+                        ((TextView) view).setText("Término: " + dateFormat.format(date));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
                     }
                     return true;
                 }

@@ -31,6 +31,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Começo: Domingo, 26 de julho de 2015"
         android:id="@+id/tv_comeco_viagem"
         android:layout_marginLeft="10dp" />
