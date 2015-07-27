@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1">
+
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:id="@+id/iv_icone_viagem"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Férias de Verão"
+            android:id="@+id/tv_titulo_viagem"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Começo: Domingo, 26 de julho de 2015"
+        android:id="@+id/tv_comeco_viagem"
+        android:layout_marginLeft="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fim: Quarta, 5 de agosto de 2015"
+        android:id="@+id/tv_fim_viagem"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp" />
+
+</LinearLayout>

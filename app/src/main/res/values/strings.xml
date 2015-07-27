@@ -3,4 +3,14 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_nova_viagem">Nova Viagem</string>
+    <string name="et_nome_viagem">Nome da viagem</string>
+    <string name="et_descricao">Descricao</string>
+    <string name="rb_pessoal">Pessoal</string>
+    <string name="rb_negocios">Negócios</string>
+    <string name="tv_tipo">Tipo de viagem</string>
+    <string name="action_nova_viagem">Nova Viagem</string>
+    <string name="et_comeco_viagem">Data inicial</string>
+    <string name="et_fim_viagem">Data do término</string>
+    <string name="bt_concliur">Concluir</string>
 </resources>
