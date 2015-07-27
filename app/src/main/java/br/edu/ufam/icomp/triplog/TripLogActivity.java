@@ -22,43 +22,52 @@ import java.util.Locale;
 
 import br.edu.ufam.icomp.triplog.controller.NovaViagemActivity;
 import br.edu.ufam.icomp.triplog.dao.ViagemDAO;
+import br.edu.ufam.icomp.triplog.model.Viagem;
 import br.edu.ufam.icomp.triplog.util.BancoDeDados;
 
 
 public class TripLogActivity extends ListActivity {
     private ViagemDAO viagemDAO;
-    private SimpleCursorAdapter viagens;
+    private Cursor cursor_viagens;
+    private SimpleCursorAdapter adapter_viagens;
 
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    private DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL, new Locale("pt", "BR"));
+    private DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL, Locale.getDefault());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         this.viagemDAO = new ViagemDAO(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("DEBUGANDO onResume","SERÁ?");
+
+        cursor_viagens = viagemDAO.getViagens();
 
         String[] colunasDe = {BancoDeDados.VIAGEM_COL_NOME, BancoDeDados.VIAGEM_COL_COMECO,
                 BancoDeDados.VIAGEM_COL_FIM, BancoDeDados.VIAGEM_COL_ICONE};
         int[] colunasPara = {R.id.tv_titulo_viagem, R.id.tv_comeco_viagem, R.id.tv_fim_viagem, R.id.iv_icone_viagem };
 
-        viagens = new SimpleCursorAdapter(this,
+        adapter_viagens = new SimpleCursorAdapter(this,
                 R.layout.lista_viagens,
-                viagemDAO.getViagens(),
+                cursor_viagens,
                 colunasDe,
                 colunasPara,
                 0);
 
-        setListAdapter(viagens);
+        setListAdapter(adapter_viagens);
 
-        viagens.setViewBinder(new SimpleCursorAdapter.ViewBinder(){
+        adapter_viagens.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
             @Override
             public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
                 if (columnIndex == cursor.getColumnIndex(BancoDeDados.VIAGEM_COL_ICONE)) {
                     String nome_imagem = cursor.getString(columnIndex);
                     ImageView iv_icone = (ImageView) view;
 
-                    Log.i(null,"Nome da imagem no DB: " + nome_imagem);
+                    Log.i(null, cursor.getInt(0) + " Nome da imagem no DB: " + nome_imagem);
 
                     if (nome_imagem == null || nome_imagem.matches("null")) {
                         Log.d("ImageView", "Nome da imagem não especificado");
@@ -74,7 +83,7 @@ public class TripLogActivity extends ListActivity {
                     Date date = null;
                     try {
                         date = sdf.parse(cursor_data);
-                        ((TextView) view).setText("Começo: " + dateFormat.format(date));
+                        ((TextView) view).setText("Começa em: " + dateFormat.format(date));
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -85,7 +94,7 @@ public class TripLogActivity extends ListActivity {
                     Date date = null;
                     try {
                         date = sdf.parse(cursor_data);
-                        ((TextView) view).setText("Término: " + dateFormat.format(date));
+                        ((TextView) view).setText("Termina em: " + dateFormat.format(date));
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -97,8 +106,8 @@ public class TripLogActivity extends ListActivity {
     }
 
     public void onListItemClick(ListView l, View v, int pos, long id) {
-
-        Toast.makeText(this,"Teste maroto",Toast.LENGTH_SHORT).show();
+        Viagem teste = viagemDAO.getViagem(cursor_viagens.getInt(0));
+        Toast.makeText(this,"Tipo de viagem: " + teste.getTipoNome(),Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -19,8 +19,21 @@ public class ViagemDAO {
         this.bancoDeDados = (new BancoDeDados(context).getWritableDatabase());
     }
 
-    public Viagem getViagem(){
-        return new Viagem();
+    public Viagem getViagem(int id) {
+        Viagem viagem = null;
+        String query = "SELECT * FROM Viagens WHERE rowid=" + id;
+        Cursor cursor = this.bancoDeDados.rawQuery(query, null);
+        if (cursor.moveToNext()) {
+            viagem = new Viagem();
+            viagem.setNome(cursor.getString(cursor.getColumnIndex(BancoDeDados.VIAGEM_COL_NOME)));
+            viagem.setComeco(cursor.getString(cursor.getColumnIndex(BancoDeDados.VIAGEM_COL_COMECO)));
+            viagem.setFim(cursor.getString(cursor.getColumnIndex(BancoDeDados.VIAGEM_COL_FIM)));
+            viagem.setTipo(cursor.getInt(cursor.getColumnIndex(BancoDeDados.VIAGEM_COL_TIPO)));
+            viagem.setDetalhes(cursor.getString(cursor.getColumnIndex(BancoDeDados.VIAGEM_COL_DETALHES)));
+            viagem.setIcone(cursor.getString(cursor.getColumnIndex(BancoDeDados.VIAGEM_COL_ICONE)));
+        }
+        cursor.close();
+        return viagem;
     }
 
     public boolean addViagem(Viagem viagem) {
@@ -45,7 +58,6 @@ public class ViagemDAO {
             Log.e("TripLogDB", e.getMessage());
             return false;
         }
-
     }
 
     public Cursor getViagens() {

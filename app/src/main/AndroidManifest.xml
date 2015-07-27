@@ -20,6 +20,10 @@
             android:name=".controller.NovaViagemActivity"
             android:label="@string/title_activity_nova_viagem" >
         </activity>
+        <activity
+            android:name=".controller.PrincipalViagemActivity"
+            android:label="@string/title_activity_principal_viagem" >
+        </activity>
     </application>
 
 </manifest>

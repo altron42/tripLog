@@ -13,4 +13,5 @@
     <string name="et_comeco_viagem">Data inicial</string>
     <string name="et_fim_viagem">Data do término</string>
     <string name="bt_concliur">Concluir</string>
+    <string name="title_activity_principal_viagem">Viagem</string>
 </resources>
