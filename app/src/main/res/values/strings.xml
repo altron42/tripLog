@@ -14,4 +14,7 @@
     <string name="et_fim_viagem">Data do término</string>
     <string name="bt_concliur">Concluir</string>
     <string name="title_activity_principal_viagem">Viagem</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

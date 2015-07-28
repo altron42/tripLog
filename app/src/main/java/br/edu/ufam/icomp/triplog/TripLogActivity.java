@@ -1,116 +1,26 @@
 package br.edu.ufam.icomp.triplog;
 
-import android.app.ListActivity;
+import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 import br.edu.ufam.icomp.triplog.controller.NovaViagemActivity;
-import br.edu.ufam.icomp.triplog.controller.PrincipalViagemActivity;
-import br.edu.ufam.icomp.triplog.dao.ViagemDAO;
-import br.edu.ufam.icomp.triplog.model.Viagem;
-import br.edu.ufam.icomp.triplog.util.BancoDeDados;
+import br.edu.ufam.icomp.triplog.controller.fragments.ListaViagensFragment;
 
 
-public class TripLogActivity extends ListActivity {
-    private ViagemDAO viagemDAO;
-    private Cursor cursor_viagens;
-    private SimpleCursorAdapter adapter_viagens;
-
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    private DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL, Locale.getDefault());
+public class TripLogActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.viagemDAO = new ViagemDAO(this);
-    }
+        setContentView(R.layout.activity_trip_log);
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d("DEBUGANDO onResume","SERÁ?");
-
-        cursor_viagens = viagemDAO.getViagens();
-
-        String[] colunasDe = {BancoDeDados.VIAGEM_COL_NOME, BancoDeDados.VIAGEM_COL_COMECO,
-                BancoDeDados.VIAGEM_COL_FIM, BancoDeDados.VIAGEM_COL_ICONE};
-        int[] colunasPara = {R.id.tv_titulo_viagem, R.id.tv_comeco_viagem, R.id.tv_fim_viagem, R.id.iv_icone_viagem };
-
-        adapter_viagens = new SimpleCursorAdapter(this,
-                R.layout.lista_viagens,
-                cursor_viagens,
-                colunasDe,
-                colunasPara,
-                0);
-
-        setListAdapter(adapter_viagens);
-
-        adapter_viagens.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
-            @Override
-            public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
-                if (columnIndex == cursor.getColumnIndex(BancoDeDados.VIAGEM_COL_ICONE)) {
-                    String nome_imagem = cursor.getString(columnIndex);
-                    ImageView iv_icone = (ImageView) view;
-
-                    Log.i(null, cursor.getInt(0) + " Nome da imagem no DB: " + nome_imagem);
-
-                    if (nome_imagem == null || nome_imagem.matches("null")) {
-                        Log.d("ImageView", "Nome da imagem não especificado");
-                        iv_icone.setImageResource(R.mipmap.ic_launcher);
-                    } else {
-                        int resource = getResources().getIdentifier(nome_imagem, "drawable", null);
-                        iv_icone.setImageResource(resource);
-                    }
-                    return true;
-                }
-                if (columnIndex == cursor.getColumnIndex(BancoDeDados.VIAGEM_COL_COMECO)) {
-                    String cursor_data = cursor.getString(columnIndex);
-                    Date date = null;
-                    try {
-                        date = sdf.parse(cursor_data);
-                        ((TextView) view).setText("Começa em: " + dateFormat.format(date));
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    return true;
-                }
-                if (columnIndex == cursor.getColumnIndex(BancoDeDados.VIAGEM_COL_FIM)) {
-                    String cursor_data = cursor.getString(columnIndex);
-                    Date date = null;
-                    try {
-                        date = sdf.parse(cursor_data);
-                        ((TextView) view).setText("Termina em: " + dateFormat.format(date));
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    return true;
-                }
-                return false;
-            }
-        });
-    }
-
-    public void onListItemClick(ListView l, View v, int pos, long id) {
-        Intent intent = new Intent(this, PrincipalViagemActivity.class);
-        Viagem viagem_selecionada = viagemDAO.getViagem(cursor_viagens.getInt(0));
-        intent.putExtra("viagem_selecionada",viagem_selecionada);
-        startActivity(intent);
+        if (getFragmentManager().findFragmentById(R.id.fragment_lista_viagens) == null) {
+            ListaViagensFragment fragment = new ListaViagensFragment();
+            getFragmentManager().beginTransaction().add(R.id.fragment_lista_viagens, fragment).commit();
+        }
     }
 
     @Override

@@ -22,7 +22,8 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/container_opcoes_principal">
 
         <TextView
             android:layout_width="match_parent"
@@ -60,6 +61,13 @@
                 android:layout_alignParentEnd="true" />
 
         </RelativeLayout>
+
+        <fragment
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:name="br.edu.ufam.icomp.triplog.controller.fragments.MenuOpcoesFragment"
+            android:id="@+id/fragment_lista_opcoes"
+            tools:layout="@layout/fragment_menu_opcoes" />
 
     </LinearLayout>
 </LinearLayout>

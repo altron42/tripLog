@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import br.edu.ufam.icomp.triplog.R;
+import br.edu.ufam.icomp.triplog.controller.fragments.MenuOpcoesFragment;
 import br.edu.ufam.icomp.triplog.model.Viagem;
 
 public class PrincipalViagemActivity extends Activity {
@@ -30,6 +31,11 @@ public class PrincipalViagemActivity extends Activity {
         viagem_selecionada = (Viagem) intent.getParcelableExtra("viagem_selecionada");
 
         findViews();
+
+        if (getFragmentManager().findFragmentById(R.id.fragment_lista_opcoes) == null) {
+            MenuOpcoesFragment lista = new MenuOpcoesFragment();
+            getFragmentManager().beginTransaction().add(R.id.fragment_lista_opcoes, lista).commit();
+        }
     }
 
     @Override
