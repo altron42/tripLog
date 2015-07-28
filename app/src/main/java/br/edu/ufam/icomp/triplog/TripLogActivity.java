@@ -21,6 +21,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import br.edu.ufam.icomp.triplog.controller.NovaViagemActivity;
+import br.edu.ufam.icomp.triplog.controller.PrincipalViagemActivity;
 import br.edu.ufam.icomp.triplog.dao.ViagemDAO;
 import br.edu.ufam.icomp.triplog.model.Viagem;
 import br.edu.ufam.icomp.triplog.util.BancoDeDados;
@@ -106,8 +107,10 @@ public class TripLogActivity extends ListActivity {
     }
 
     public void onListItemClick(ListView l, View v, int pos, long id) {
-        Viagem teste = viagemDAO.getViagem(cursor_viagens.getInt(0));
-        Toast.makeText(this,"Tipo de viagem: " + teste.getTipoNome(),Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, PrincipalViagemActivity.class);
+        Viagem viagem_selecionada = viagemDAO.getViagem(cursor_viagens.getInt(0));
+        intent.putExtra("viagem_selecionada",viagem_selecionada);
+        startActivity(intent);
     }
 
     @Override

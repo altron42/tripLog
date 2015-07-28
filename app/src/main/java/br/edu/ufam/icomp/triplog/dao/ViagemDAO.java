@@ -67,6 +67,6 @@ public class ViagemDAO {
                 BancoDeDados.VIAGEM_COL_COMECO + ", " +
                 BancoDeDados.VIAGEM_COL_FIM + ", " +
                 BancoDeDados.VIAGEM_COL_ICONE + " " +
-                "FROM Viagens ORDER BY rowid", null);
+                "FROM Viagens ORDER BY rowid DESC", null);
     }
 }

@@ -1,18 +1,55 @@
 package br.edu.ufam.icomp.triplog.controller;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import br.edu.ufam.icomp.triplog.R;
+import br.edu.ufam.icomp.triplog.model.Viagem;
 
 public class PrincipalViagemActivity extends Activity {
+
+    private ImageView iv_banner_viagem;
+
+    private TextView tv_periodo;
+    private TextView tv_tipo;
+    private TextView tv_orcamento_valor;
+
+    private Viagem viagem_selecionada;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal_viagem);
+
+        Intent intent = getIntent();
+        viagem_selecionada = (Viagem) intent.getParcelableExtra("viagem_selecionada");
+
+        findViews();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        setarValores();
+    }
+
+    private void findViews() {
+        iv_banner_viagem = (ImageView) findViewById(R.id.iv_banner_viagem);
+
+        tv_periodo = (TextView) findViewById(R.id.tv_periodo_viagem);
+        tv_tipo = (TextView) findViewById(R.id.tv_tipo);
+        tv_orcamento_valor = (TextView) findViewById(R.id.tv_orcamento_valor);
+    }
+
+    private void setarValores() {
+        tv_periodo.setText("De " + viagem_selecionada.getComeco() + " até " + viagem_selecionada.getFim());
+        tv_tipo.setText("Categoria: " + viagem_selecionada.getTipoNome());
     }
 
     @Override
