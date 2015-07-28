@@ -25,6 +25,7 @@ public class ViagemDAO {
         Cursor cursor = this.bancoDeDados.rawQuery(query, null);
         if (cursor.moveToNext()) {
             viagem = new Viagem();
+            viagem.setId(id);
             viagem.setNome(cursor.getString(cursor.getColumnIndex(BancoDeDados.VIAGEM_COL_NOME)));
             viagem.setComeco(cursor.getString(cursor.getColumnIndex(BancoDeDados.VIAGEM_COL_COMECO)));
             viagem.setFim(cursor.getString(cursor.getColumnIndex(BancoDeDados.VIAGEM_COL_FIM)));

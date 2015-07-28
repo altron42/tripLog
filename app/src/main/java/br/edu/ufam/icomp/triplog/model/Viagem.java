@@ -8,6 +8,7 @@ import android.os.Parcelable;
  */
 public class Viagem implements Parcelable {
 
+    private int id;
     private String nome;
     private String comeco;
     private String fim;
@@ -25,6 +26,14 @@ public class Viagem implements Parcelable {
 
     public Viagem() {
         this(null,null,null,null,0);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNome() {

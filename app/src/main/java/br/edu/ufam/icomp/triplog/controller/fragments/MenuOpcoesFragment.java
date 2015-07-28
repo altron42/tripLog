@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.lang.reflect.Array;
@@ -28,11 +29,12 @@ public class MenuOpcoesFragment extends ListFragment {
         super.onActivityCreated(savedInstance);
 
         String[] itens_lista = {
+                "Despesas",
                 "Hospedagem",
-                "Gastos",
-                "Modo de viagem",
-                "Notas de viagem",
-                "Atividades"
+                "Atividades",
+                "Anotações",
+                "Carteiras",
+                "Modo de Viagem"
         };
 
         ArrayList<String> lista = new ArrayList<>();
@@ -46,8 +48,8 @@ public class MenuOpcoesFragment extends ListFragment {
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        Log.i("FragmentList", "Item clicado: " + id);
-        Toast.makeText(getActivity(), "Item clicado" + id, Toast.LENGTH_SHORT).show();
+        TextView tv_opcao = (TextView) v.findViewById(R.id.tv_item_nome);
+        Toast.makeText(getActivity(), "Opçao: " + tv_opcao.getText(), Toast.LENGTH_SHORT).show();
     }
 
 }

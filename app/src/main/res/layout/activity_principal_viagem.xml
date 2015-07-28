@@ -14,11 +14,6 @@
         android:id="@+id/iv_banner_viagem"
         android:src="@mipmap/ic_launcher" />
 
-    <Space
-        android:layout_width="36dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center_horizontal" />
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
