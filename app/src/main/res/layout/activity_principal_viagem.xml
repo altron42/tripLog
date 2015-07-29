@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Viagem pessoal"
+            android:text="@string/tv_tipo_viagem"
             android:id="@+id/tv_tipo" />
 
         <RelativeLayout
@@ -43,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Orçamento disponível:"
+                android:text="@string/tv_orcamento"
                 android:id="@+id/tv_orcamento"
                 android:layout_alignParentStart="true" />
 

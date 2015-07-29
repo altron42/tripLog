@@ -2,19 +2,26 @@
     <string name="app_name">TripLog</string>
 
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_nova_viagem">Nova Viagem</string>
-    <string name="et_nome_viagem">Nome da viagem</string>
-    <string name="et_descricao">Descricao</string>
-    <string name="rb_pessoal">Pessoal</string>
-    <string name="rb_negocios">Negócios</string>
-    <string name="tv_tipo">Tipo de viagem</string>
+
+    <string name="action_settings">Configurações</string>
     <string name="action_nova_viagem">Nova Viagem</string>
-    <string name="et_comeco_viagem">Data inicial</string>
-    <string name="et_fim_viagem">Data do término</string>
-    <string name="bt_concliur">Concluir</string>
+
+    <string name="title_activity_nova_viagem">Nova Viagem</string>
     <string name="title_activity_principal_viagem">Viagem</string>
 
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="et_nome_viagem">Nome da viagem</string>
+    <string name="et_descricao">Descriçãoo</string>
+    <string name="et_comeco_viagem">Data começa</string>
+    <string name="et_fim_viagem">Data termina</string>
+
+    <string name="rb_tipo_viagem_pessoal">Pessoal</string>
+    <string name="rb_tipo_viagem_trabalho">Trabalho</string>
+
+    <string name="tv_tipo_viagem">Tipo de viagem</string>
+    <string name="tv_categoria">Categoria</string>
+    <string name="tv_orcamento">Orçamento disponível:</string>
+
+
+    <string name="bt_concliur">Concluir</string>
+
 </resources>

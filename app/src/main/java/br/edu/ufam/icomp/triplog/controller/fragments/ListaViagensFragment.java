@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -26,6 +27,7 @@ import br.edu.ufam.icomp.triplog.controller.PrincipalViagemActivity;
 import br.edu.ufam.icomp.triplog.dao.ViagemDAO;
 import br.edu.ufam.icomp.triplog.model.Viagem;
 import br.edu.ufam.icomp.triplog.util.BancoDeDados;
+import br.edu.ufam.icomp.triplog.util.DateHandler;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,9 +36,6 @@ public class ListaViagensFragment extends ListFragment {
     private ViagemDAO viagemDAO;
     private Cursor cursor_viagens;
     private SimpleCursorAdapter adapter_viagens;
-
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    private DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL, Locale.getDefault());
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -77,23 +76,13 @@ public class ListaViagensFragment extends ListFragment {
                     }
                     return true;
                 }
-                if (columnIndex == cursor.getColumnIndex(BancoDeDados.VIAGEM_COL_COMECO)) {
-                    String cursor_data = cursor.getString(columnIndex);
-                    Date date = null;
+                if (columnIndex == cursor.getColumnIndex(BancoDeDados.VIAGEM_COL_COMECO) ||
+                        columnIndex == cursor.getColumnIndex(BancoDeDados.VIAGEM_COL_FIM)) {
                     try {
-                        date = sdf.parse(cursor_data);
-                        ((TextView) view).setText("Começa em: " + dateFormat.format(date));
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    return true;
-                }
-                if (columnIndex == cursor.getColumnIndex(BancoDeDados.VIAGEM_COL_FIM)) {
-                    String cursor_data = cursor.getString(columnIndex);
-                    Date date = null;
-                    try {
-                        date = sdf.parse(cursor_data);
-                        ((TextView) view).setText("Termina em: " + dateFormat.format(date));
+                        String data = DateHandler.dateFormatFull.format(DateHandler.sdf.parse(cursor.getString(columnIndex)));
+                        int stringId = columnIndex == cursor.getColumnIndex(BancoDeDados.VIAGEM_COL_COMECO) ?
+                                R.string.et_comeco_viagem : R.string.et_fim_viagem;
+                        ((TextView) view).setText(getString(stringId) + ": " + data);
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -117,6 +106,7 @@ public class ListaViagensFragment extends ListFragment {
 
     @Override
     public void onListItemClick(ListView l, View v, int pos, long id) {
+        Toast.makeText(getActivity(),"Clicado item id: "+ id + " POS: " + pos, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getActivity(), PrincipalViagemActivity.class);
         Viagem viagem_selecionada = viagemDAO.getViagem(cursor_viagens.getInt(0));
         intent.putExtra("viagem_selecionada", viagem_selecionada);

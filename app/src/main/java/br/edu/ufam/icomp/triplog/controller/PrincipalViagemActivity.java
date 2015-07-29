@@ -8,6 +8,9 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import br.edu.ufam.icomp.triplog.R;
 import br.edu.ufam.icomp.triplog.controller.fragments.MenuOpcoesFragment;
 import br.edu.ufam.icomp.triplog.model.Viagem;
@@ -54,8 +57,10 @@ public class PrincipalViagemActivity extends Activity {
     }
 
     private void setarValores() {
+        DateFormat df = new SimpleDateFormat();
         tv_periodo.setText("De " + viagem_selecionada.getComeco() + " até " + viagem_selecionada.getFim());
-        tv_tipo.setText("Categoria: " + viagem_selecionada.getTipoNome());
+        String categoria = viagem_selecionada.getTipo() == 1 ? getString(R.string.rb_tipo_viagem_pessoal) : getString(R.string.rb_tipo_viagem_trabalho);
+        tv_tipo.setText(getString(R.string.tv_categoria) + ": " + categoria);
     }
 
     @Override

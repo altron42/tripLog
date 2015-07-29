@@ -55,7 +55,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/tv_tipo"
+        android:text="@string/tv_tipo_viagem"
         android:id="@+id/tv_tipo"
         android:layout_marginTop="25dp" />
 
@@ -69,14 +69,14 @@
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/rb_pessoal"
+            android:text="@string/rb_tipo_viagem_pessoal"
             android:id="@+id/rb_pessoal"
             android:checked="true" />
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/rb_negocios"
+            android:text="@string/rb_tipo_viagem_trabalho"
             android:id="@+id/rb_negocios" />
     </RadioGroup>
 

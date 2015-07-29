@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.edu.ufam.icomp.triplog.R;
+import br.edu.ufam.icomp.triplog.util.Opcoes;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,17 +29,8 @@ public class MenuOpcoesFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstance) {
         super.onActivityCreated(savedInstance);
 
-        String[] itens_lista = {
-                "Despesas",
-                "Hospedagem",
-                "Atividades",
-                "Anotações",
-                "Carteiras",
-                "Modo de Viagem"
-        };
-
         ArrayList<String> lista = new ArrayList<>();
-        for (String s : itens_lista) {
+        for (String s : new Opcoes(getActivity()).menu_opcoes_lista) {
             lista.add(s);
         }
 

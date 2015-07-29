@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="opcoes_array">
+        <item>Despesas</item>
+        <item>Hospedagem</item>
+        <item>Atividades</item>
+        <item>Anotações</item>
+        <item>Carteira</item>
+        <item>Modo de Viagem</item>
+        <item>Coi9sas loka</item>
+    </string-array>
+</resources>
