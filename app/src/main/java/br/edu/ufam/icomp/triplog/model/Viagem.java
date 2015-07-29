@@ -72,10 +72,6 @@ public class Viagem implements Parcelable {
         return tipo;
     }
 
-    public String getTipoNome() {
-        return tipo == 1 ? "pessoal" : "negócios";
-    }
-
     public void setTipo(int tipo) {
         this.tipo = tipo;
     }

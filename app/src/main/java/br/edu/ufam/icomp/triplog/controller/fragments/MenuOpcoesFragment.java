@@ -29,19 +29,14 @@ public class MenuOpcoesFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstance) {
         super.onActivityCreated(savedInstance);
 
-        ArrayList<String> lista = new ArrayList<>();
-        for (String s : new Opcoes(getActivity()).menu_opcoes_lista) {
-            lista.add(s);
-        }
-
         setListAdapter(new ArrayAdapter<String>(getActivity(),
-                R.layout.lista_menu_opcoes, R.id.tv_item_nome, lista));
+                R.layout.lista_menu_opcoes, R.id.tv_item_nome, new Opcoes(getActivity()).menu_opcoes_lista));
     }
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         TextView tv_opcao = (TextView) v.findViewById(R.id.tv_item_nome);
-        Toast.makeText(getActivity(), "Opçao: " + tv_opcao.getText(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "Opçao: " + tv_opcao.getText() + " ID: " + id + " position " + position, Toast.LENGTH_SHORT).show();
     }
 
 }

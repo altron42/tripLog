@@ -22,6 +22,27 @@ public class BancoDeDados extends SQLiteOpenHelper {
     public static final String VIAGEM_COL_ICONE = "icone";
 
     /**
+     * Column names for table Despesas
+     */
+    public static final String DESPESA_COL_NOME = "nome";
+    public static final String DESPESA_COL_DATA = "data";
+    public static final String DESPESA_COL_VALOR = "valor";
+    public static final String DESPESA_COL_CATEGORIA = "categoria";
+    public static final String DESPESA_COL_PAGOCOM = "pago_com";
+    public static final String DESPESA_COL_COMENTARIO = "comentario";
+
+    /**
+     * Table Despesas
+     */
+    private static final String SQL_CREATE_TABLE_DESPESAS = "CREATE TABLE Despesas(" +
+            DESPESA_COL_NOME + " TEXT NOT NULL, "  +
+            DESPESA_COL_DATA + " TEXT NOT NULL, " +
+            DESPESA_COL_VALOR + " INT NOT NULL, " +
+            DESPESA_COL_CATEGORIA + " DOUBLE NOT NULL, " +
+            DESPESA_COL_PAGOCOM + " INT, " +
+            DESPESA_COL_COMENTARIO + " TEXT)";
+
+    /**
      * Table Viagens
      */
     private static final String SQL_CREATE_TABLE_VIAGENS = "CREATE TABLE Viagens(" +
