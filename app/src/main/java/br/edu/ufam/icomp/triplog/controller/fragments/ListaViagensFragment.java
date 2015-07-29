@@ -106,7 +106,7 @@ public class ListaViagensFragment extends ListFragment {
         //Cursor novo_cursor = viagemDAO.getViagens();
 
         //cursor_viagens = adapter_viagens.swapCursor(novo_cursor);
-        
+
         adapter_viagens.notifyDataSetChanged();
     }
 
