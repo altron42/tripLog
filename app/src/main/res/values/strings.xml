@@ -10,7 +10,7 @@
     <string name="title_activity_principal_viagem">Viagem</string>
 
     <string name="et_nome_viagem">Nome da viagem</string>
-    <string name="et_descricao">Descriçãoo</string>
+    <string name="et_descricao">Descrição</string>
     <string name="et_comeco_viagem">Data começa</string>
     <string name="et_fim_viagem">Data termina</string>
 
@@ -23,5 +23,6 @@
 
 
     <string name="bt_concliur">Concluir</string>
+    <string name="cab_viagens_delete">Apagar</string>
 
 </resources>

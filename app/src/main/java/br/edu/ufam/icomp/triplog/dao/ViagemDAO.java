@@ -6,6 +6,8 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.sql.Struct;
+
 import br.edu.ufam.icomp.triplog.model.Viagem;
 import br.edu.ufam.icomp.triplog.util.BancoDeDados;
 
@@ -53,6 +55,18 @@ public class ViagemDAO {
                     viagem.getTipo() + ", '" +
                     viagem.getIcone() + "')";
 
+            this.bancoDeDados.execSQL(query);
+            return true;
+        } catch (SQLException e) {
+            Log.e("TripLogDB", e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean delViagem(int id) {
+        try {
+            Log.i(null,"APAGANDO " + id);
+            String query = "DELETE FROM Viagens WHERE rowid=" + id;
             this.bancoDeDados.execSQL(query);
             return true;
         } catch (SQLException e) {

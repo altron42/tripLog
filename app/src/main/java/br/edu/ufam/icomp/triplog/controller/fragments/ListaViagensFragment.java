@@ -6,21 +6,30 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.text.Html;
+import android.text.Layout;
 import android.util.Log;
+import android.view.ActionMode;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.DateFormat;
+import org.w3c.dom.Text;
+
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+import java.util.zip.Inflater;
 
 import br.edu.ufam.icomp.triplog.R;
 import br.edu.ufam.icomp.triplog.controller.PrincipalViagemActivity;
@@ -37,13 +46,24 @@ public class ListaViagensFragment extends ListFragment {
     private Cursor cursor_viagens;
     private SimpleCursorAdapter adapter_viagens;
 
+    private ActionMode mActionMode;
+
+    private long id_selecionado;
+    private int position_selecionado;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        setEmptyText(Html.fromHtml("<br><br><p>Sua lista de viagens está vazia</p>"));
+    }
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         this.viagemDAO = new ViagemDAO(getActivity());
 
-        cursor_viagens = viagemDAO.getViagens();
+        //cursor_viagens = viagemDAO.getViagens();
 
         String[] colunasDe = {BancoDeDados.VIAGEM_COL_NOME, BancoDeDados.VIAGEM_COL_COMECO,
                 BancoDeDados.VIAGEM_COL_FIM, BancoDeDados.VIAGEM_COL_ICONE};
@@ -98,24 +118,88 @@ public class ListaViagensFragment extends ListFragment {
             }
         });
 
+        AdapterView.OnItemLongClickListener longClickListener = new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                if (mActionMode != null) {
+                    return false;
+                }
+                id_selecionado = id;
+                position_selecionado = position;
+                getListView().setItemChecked(position,true);
+                mActionMode = getActivity().startActionMode(mAntionModeCallback);
+                return true;
+            }
+        };
+
+        getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        getListView().setOnItemLongClickListener(longClickListener);
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        //Cursor novo_cursor = viagemDAO.getViagens();
-
-        //cursor_viagens = adapter_viagens.swapCursor(novo_cursor);
-
-        adapter_viagens.notifyDataSetChanged();
+        atualizarAdapter();
     }
 
     @Override
     public void onListItemClick(ListView l, View v, int pos, long id) {
+        if (mActionMode != null) {
+            id_selecionado = id;
+            return;
+        }
+
         Toast.makeText(getActivity(),"Clicado item id: "+ id + " POS: " + pos, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getActivity(), PrincipalViagemActivity.class);
         Viagem viagem_selecionada = viagemDAO.getViagem((int)id);
         intent.putExtra("viagem_selecionada", viagem_selecionada);
         startActivity(intent);
     }
+
+    private void atualizarAdapter() {
+        Cursor novo_cursor = viagemDAO.getViagens();
+        cursor_viagens = adapter_viagens.swapCursor(novo_cursor);
+        adapter_viagens.notifyDataSetChanged();
+        if (adapter_viagens.isEmpty()) {
+            Log.i(null, "LISTA VAZIA");
+        }
+    }
+
+    private ActionMode.Callback mAntionModeCallback = new ActionMode.Callback() {
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            MenuInflater inflater = mode.getMenuInflater();
+            inflater.inflate(R.menu.menu_cab_lista_viagens,menu);
+            return true;
+        }
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.cab_item_delete:
+                    if (viagemDAO.delViagem((int)id_selecionado)) {
+                        Toast.makeText(getActivity(), "Apagado " + id_selecionado, Toast.LENGTH_SHORT).show();
+                        atualizarAdapter();
+                    } else {
+                        Toast.makeText(getActivity(), "Erro ao apagar " + id_selecionado, Toast.LENGTH_SHORT).show();
+                    }
+                    mode.finish();
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+            mActionMode = null;
+            getListView().setItemChecked(position_selecionado,false);
+        }
+    };
 }

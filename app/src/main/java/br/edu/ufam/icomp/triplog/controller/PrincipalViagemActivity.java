@@ -58,7 +58,8 @@ public class PrincipalViagemActivity extends Activity {
 
     private void setarValores() {
         DateFormat df = new SimpleDateFormat();
-        tv_periodo.setText("De " + viagem_selecionada.getComeco() + " até " + viagem_selecionada.getFim());
+        tv_periodo.setText("De " + viagem_selecionada.getComeco() +
+                " até " + viagem_selecionada.getFim());
         String categoria = viagem_selecionada.getTipo() == 1 ? getString(R.string.rb_tipo_viagem_pessoal) : getString(R.string.rb_tipo_viagem_trabalho);
         tv_tipo.setText(getString(R.string.tv_categoria) + ": " + categoria);
     }

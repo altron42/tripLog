@@ -28,7 +28,10 @@ public class DespesaDAO {
             despesa.setId(id);
             despesa.setNome(cursor.getString(cursor.getColumnIndex(BancoDeDados.DESPESA_COL_NOME)));
             despesa.setData(cursor.getString(cursor.getColumnIndex(BancoDeDados.DESPESA_COL_DATA)));
-
+            despesa.setValor(cursor.getDouble(cursor.getColumnIndex(BancoDeDados.DESPESA_COL_VALOR)));
+            despesa.setCategoria(cursor.getInt(cursor.getColumnIndex(BancoDeDados.DESPESA_COL_CATEGORIA)));
+            despesa.setPagoCom(cursor.getInt(cursor.getColumnIndex(BancoDeDados.DESPESA_COL_PAGOCOM)));
+            despesa.setComentario(cursor.getString(cursor.getColumnIndex(BancoDeDados.DESPESA_COL_COMENTARIO)));
         }
         cursor.close();
         return despesa;
@@ -37,18 +40,18 @@ public class DespesaDAO {
     public boolean addDespesa(Despesa despesa) {
         try {
             String query = "INSERT INTO Despesas (" +
-                    BancoDeDados.VIAGEM_COL_NOME + ", " +
-                    BancoDeDados.VIAGEM_COL_COMECO + ", " +
-                    BancoDeDados.VIAGEM_COL_FIM + ", " +
-                    BancoDeDados.VIAGEM_COL_DETALHES + ", " +
-                    BancoDeDados.VIAGEM_COL_TIPO + ", " +
-                    BancoDeDados.VIAGEM_COL_ICONE + ") VALUES ('" +
+                    BancoDeDados.DESPESA_COL_NOME + ", " +
+                    BancoDeDados.DESPESA_COL_DATA + ", " +
+                    BancoDeDados.DESPESA_COL_VALOR + ", " +
+                    BancoDeDados.DESPESA_COL_CATEGORIA + ", " +
+                    BancoDeDados.DESPESA_COL_PAGOCOM + ", " +
+                    BancoDeDados.DESPESA_COL_COMENTARIO + ") VALUES ('" +
                     despesa.getNome() + "', '" +
-                    despesa.getComeco() + "', '" +
-                    despesa.getFim() + "', '" +
-                    despesa.getDetalhes() + "', " +
-                    despesa.getTipo() + ", '" +
-                    despesa.getIcone() + "')";
+                    despesa.getData() + "', '" +
+                    despesa.getValor() + "', '" +
+                    despesa.getCategoria() + "', " +
+                    despesa.getPagoCom() + ", '" +
+                    despesa.getComentario() + "')";
 
             this.bancoDeDados.execSQL(query);
             return true;
@@ -61,10 +64,10 @@ public class DespesaDAO {
     public Cursor getDespesas() {
         return this.bancoDeDados.rawQuery("SELECT " +
                 "rowid AS _id, " +
-                BancoDeDados.VIAGEM_COL_NOME + ", " +
-                BancoDeDados.VIAGEM_COL_COMECO + ", " +
-                BancoDeDados.VIAGEM_COL_FIM + ", " +
-                BancoDeDados.VIAGEM_COL_ICONE + " " +
-                "FROM Viagens ORDER BY rowid DESC", null);
+                BancoDeDados.DESPESA_COL_NOME + ", " +
+                BancoDeDados.DESPESA_COL_DATA + ", " +
+                BancoDeDados.DESPESA_COL_VALOR + ", " +
+                BancoDeDados.DESPESA_COL_CATEGORIA + " " +
+                "FROM Despesas ORDER BY rowid DESC", null);
     }
 }
