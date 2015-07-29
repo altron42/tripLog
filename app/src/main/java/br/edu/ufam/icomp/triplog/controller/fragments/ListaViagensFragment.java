@@ -48,14 +48,14 @@ public class ListaViagensFragment extends ListFragment {
         String[] colunasDe = {BancoDeDados.VIAGEM_COL_NOME, BancoDeDados.VIAGEM_COL_COMECO,
                 BancoDeDados.VIAGEM_COL_FIM, BancoDeDados.VIAGEM_COL_ICONE};
         int[] colunasPara = {R.id.tv_titulo_viagem, R.id.tv_comeco_viagem, R.id.tv_fim_viagem, R.id.iv_icone_viagem };
-        Log.i(null, "Debug 1");
+
         adapter_viagens = new SimpleCursorAdapter(getActivity(),
                 R.layout.lista_viagens,
                 cursor_viagens,
                 colunasDe,
                 colunasPara,
                 0);
-        Log.i(null, "Debug 2");
+
         setListAdapter(adapter_viagens);
 
         adapter_viagens.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
@@ -76,13 +76,19 @@ public class ListaViagensFragment extends ListFragment {
                     }
                     return true;
                 }
-                if (columnIndex == cursor.getColumnIndex(BancoDeDados.VIAGEM_COL_COMECO) ||
-                        columnIndex == cursor.getColumnIndex(BancoDeDados.VIAGEM_COL_FIM)) {
+                if (columnIndex == cursor.getColumnIndex(BancoDeDados.VIAGEM_COL_COMECO)) {
                     try {
                         String data = DateHandler.dateFormatFull.format(DateHandler.sdf.parse(cursor.getString(columnIndex)));
-                        int stringId = columnIndex == cursor.getColumnIndex(BancoDeDados.VIAGEM_COL_COMECO) ?
-                                R.string.et_comeco_viagem : R.string.et_fim_viagem;
-                        ((TextView) view).setText(getString(stringId) + ": " + data);
+                        ((TextView) view).setText(getString(R.string.et_comeco_viagem) + ": " + data);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    return true;
+                }
+                if (columnIndex == cursor.getColumnIndex(BancoDeDados.VIAGEM_COL_FIM)) {
+                    try {
+                        String data = DateHandler.dateFormatFull.format(DateHandler.sdf.parse(cursor.getString(columnIndex)));
+                        ((TextView) view).setText(getString(R.string.et_fim_viagem) + ": " + data);
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -97,10 +103,10 @@ public class ListaViagensFragment extends ListFragment {
     @Override
     public void onResume() {
         super.onResume();
-        Cursor novo_cursor = viagemDAO.getViagens();
+        //Cursor novo_cursor = viagemDAO.getViagens();
 
-        cursor_viagens = adapter_viagens.swapCursor(novo_cursor);
-
+        //cursor_viagens = adapter_viagens.swapCursor(novo_cursor);
+        
         adapter_viagens.notifyDataSetChanged();
     }
 
@@ -108,7 +114,7 @@ public class ListaViagensFragment extends ListFragment {
     public void onListItemClick(ListView l, View v, int pos, long id) {
         Toast.makeText(getActivity(),"Clicado item id: "+ id + " POS: " + pos, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getActivity(), PrincipalViagemActivity.class);
-        Viagem viagem_selecionada = viagemDAO.getViagem(cursor_viagens.getInt(0));
+        Viagem viagem_selecionada = viagemDAO.getViagem((int)id);
         intent.putExtra("viagem_selecionada", viagem_selecionada);
         startActivity(intent);
     }
