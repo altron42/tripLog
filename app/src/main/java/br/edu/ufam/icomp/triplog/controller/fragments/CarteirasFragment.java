@@ -57,7 +57,7 @@ public class CarteirasFragment extends ListFragment {
             @Override
             public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
                 if (columnIndex == cursor.getColumnIndex(BancoDeDados.CARTEIRA_COL_VALOR)) {
-                    ((TextView) view).setText("R$" + String.valueOf(cursor.getDouble(columnIndex)));
+                    ((TextView) view).setText("Disponível: R$ " + String.valueOf(cursor.getDouble(columnIndex)));
                     return true;
                 }
                 return false;

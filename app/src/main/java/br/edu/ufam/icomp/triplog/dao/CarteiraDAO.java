@@ -99,7 +99,7 @@ public class CarteiraDAO {
                 BancoDeDados.CARTEIRA_COL_VALOR + " " +
                 "FROM Carteiras WHERE " +
                 BancoDeDados.COL_ID_VIAGEM + "=" + idViagem + " " +
-                "ORDER BY rowid DESC";
+                "ORDER BY rowid";
         return this.bancoDeDados.rawQuery(query, null);
     }
 
