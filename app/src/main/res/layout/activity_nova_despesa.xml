@@ -1,0 +1,69 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="br.edu.ufam.icomp.triplog.controller.NovaDespesaActivity"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/et_nome_item_gasto"
+        android:hint="@string/tv_item_gasto" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:id="@+id/et_valor_item_gasto"
+        android:hint="@string/tv_valor_gasto" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:ems="10"
+        android:id="@+id/et_data_item_gasto"
+        android:hint="@string/tv_data"
+        android:onClick="showDatePickerDialog"
+        android:editable="false"
+        android:focusable="false" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_categoria_item_gasto"
+        android:layout_gravity="center_horizontal"
+        android:hint="@string/et_categoria_gasto" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/et_carteira_item_gasto"
+        android:layout_gravity="right"
+        android:hint="@string/et_pago_com" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_comentario_gasto"
+        android:hint="@string/et_descricao"
+        android:layout_weight="0.18" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/bt_concliur"
+        android:id="@+id/bt_concluir_nova_despesa"
+        android:layout_gravity="center_horizontal"
+        android:onClick="btConcluirNovaDespesa" />
+
+</LinearLayout>

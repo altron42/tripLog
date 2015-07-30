@@ -7,29 +7,20 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.text.Html;
-import android.text.Layout;
 import android.util.Log;
 import android.view.ActionMode;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import java.text.ParseException;
-import java.util.zip.Inflater;
 
 import br.edu.ufam.icomp.triplog.R;
 import br.edu.ufam.icomp.triplog.controller.PrincipalViagemActivity;
@@ -153,6 +144,8 @@ public class ListaViagensFragment extends ListFragment {
         Toast.makeText(getActivity(),"Clicado item id: "+ id + " POS: " + pos, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getActivity(), PrincipalViagemActivity.class);
         Viagem viagem_selecionada = viagemDAO.getViagem((int)id);
+        Log.i(null,"Id antes " + id);
+        viagem_selecionada.setId((int)id);
         intent.putExtra("viagem_selecionada", viagem_selecionada);
         startActivity(intent);
     }

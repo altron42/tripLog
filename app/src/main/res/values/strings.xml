@@ -8,6 +8,7 @@
 
     <string name="title_activity_nova_viagem">Nova Viagem</string>
     <string name="title_activity_principal_viagem">Viagem</string>
+    <string name="title_activity_despesas">Despesas</string>
 
     <string name="et_nome_viagem">Nome da viagem</string>
     <string name="et_descricao">Descrição</string>
@@ -20,9 +21,21 @@
     <string name="tv_tipo_viagem">Tipo de viagem</string>
     <string name="tv_categoria">Categoria</string>
     <string name="tv_orcamento">Orçamento disponível:</string>
-
+    <string name="tv_valor_gasto">Valor</string>
+    <string name="tv_item_gasto">Item</string>
+    <string name="tv_data">Data</string>
 
     <string name="bt_concliur">Concluir</string>
     <string name="cab_viagens_delete">Apagar</string>
+    <string name="title_activity_nova_carteira">NovaCarteiraActivity</string>
+    <string name="et_nome_carteira">Nome da Carteira</string>
+    <string name="et_valor_carteira">Valor disponível</string>
+    <string name="et_nome_carteira_ex">Ex: dinheiro para lazer, cartão de crédito, etc...</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_nova_despesa">NovaDespesaActivity</string>
+    <string name="et_categoria_gasto">Categoria</string>
+    <string name="et_pago_com">Pago com</string>
+    <string name="action_nova_despesa">Nova despesa</string>
 
 </resources>

@@ -2,6 +2,7 @@ package br.edu.ufam.icomp.triplog.controller.fragments;
 
 
 import android.app.ListFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
@@ -18,6 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.edu.ufam.icomp.triplog.R;
+import br.edu.ufam.icomp.triplog.controller.DespesasActivity;
+import br.edu.ufam.icomp.triplog.controller.NovaCarteiraActivity;
 import br.edu.ufam.icomp.triplog.util.Opcoes;
 
 /**
@@ -35,8 +38,18 @@ public class MenuOpcoesFragment extends ListFragment {
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        TextView tv_opcao = (TextView) v.findViewById(R.id.tv_item_nome);
-        Toast.makeText(getActivity(), "Opçao: " + tv_opcao.getText() + " ID: " + id + " position " + position, Toast.LENGTH_SHORT).show();
+        switch (position) {
+            case 0:
+                Intent intent_0 = new Intent(getActivity(), DespesasActivity.class);
+                startActivity(intent_0);
+                break;
+            case 4:
+                Intent intent_4 = new Intent(getActivity(), NovaCarteiraActivity.class);
+                startActivity(intent_4);
+                break;
+            default:
+                break;
+        }
     }
 
 }

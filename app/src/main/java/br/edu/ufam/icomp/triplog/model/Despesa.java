@@ -14,6 +14,7 @@ public class Despesa implements Parcelable {
     private double valor;
     private int categoria;
     private int pagoCom;
+    private int idViagem;
 
     public Despesa(String nome, String data, String comentario, double valor, int categoria, int pagoCom) {
         this.nome = nome;
@@ -88,6 +89,14 @@ public class Despesa implements Parcelable {
         this.pagoCom = pagoCom;
     }
 
+    public int getIdViagem() {
+        return idViagem;
+    }
+
+    public void setIdViagem(int idViagem) {
+        this.idViagem = idViagem;
+    }
+
     // Parcelable from here
 
     protected Despesa(Parcel in) {
@@ -98,6 +107,7 @@ public class Despesa implements Parcelable {
         valor = in.readDouble();
         categoria = in.readInt();
         pagoCom = in.readInt();
+        idViagem = in.readInt();
     }
 
     @Override
@@ -114,6 +124,7 @@ public class Despesa implements Parcelable {
         dest.writeDouble(valor);
         dest.writeInt(categoria);
         dest.writeInt(pagoCom);
+        dest.writeInt(idViagem);
     }
 
     @SuppressWarnings("unused")

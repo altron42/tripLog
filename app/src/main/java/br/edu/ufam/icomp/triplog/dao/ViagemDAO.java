@@ -64,13 +64,17 @@ public class ViagemDAO {
     }
 
     public boolean delViagem(int id) {
-        try {
-            Log.i(null,"APAGANDO " + id);
-            String query = "DELETE FROM Viagens WHERE rowid=" + id;
-            this.bancoDeDados.execSQL(query);
-            return true;
-        } catch (SQLException e) {
-            Log.e("TripLogDB", e.getMessage());
+        if (new CarteiraDAO(bancoDeDados).delCarteiras(id)) {
+            try {
+
+                String query = "DELETE FROM Viagens WHERE rowid=" + id;
+                this.bancoDeDados.execSQL(query);
+                return true;
+            } catch (SQLException e) {
+                Log.e("TripLogDB", e.getMessage());
+                return false;
+            }
+        } else {
             return false;
         }
     }

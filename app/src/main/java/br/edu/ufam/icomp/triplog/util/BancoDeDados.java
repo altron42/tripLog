@@ -8,8 +8,11 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by micael on 26/07/15.
  */
 public class BancoDeDados extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 3;
+    public static final int DATABASE_VERSION = 4;
     public static final String DATABASE_NAME = "TripLogApp.db";
+
+
+    public static final String COL_ID_VIAGEM = "id_viagem";
 
     /**
      * Column names for table Viagens
@@ -32,15 +35,10 @@ public class BancoDeDados extends SQLiteOpenHelper {
     public static final String DESPESA_COL_COMENTARIO = "comentario";
 
     /**
-     * Table Despesas
+     * Column name for table Carteiras
      */
-    private static final String SQL_CREATE_TABLE_DESPESAS = "CREATE TABLE Despesas(" +
-            DESPESA_COL_NOME + " TEXT NOT NULL, "  +
-            DESPESA_COL_DATA + " TEXT NOT NULL, " +
-            DESPESA_COL_VALOR + " INT NOT NULL, " +
-            DESPESA_COL_CATEGORIA + " DOUBLE NOT NULL, " +
-            DESPESA_COL_PAGOCOM + " INT, " +
-            DESPESA_COL_COMENTARIO + " TEXT)";
+    public static final String CARTEIRA_COL_NOME = "nome";
+    public static final String CARTEIRA_COL_VALOR = "valor_disponivel";
 
     /**
      * Table Viagens
@@ -53,10 +51,30 @@ public class BancoDeDados extends SQLiteOpenHelper {
             VIAGEM_COL_TIPO + " INT NOT NULL, " +
             VIAGEM_COL_ICONE + " TEXT )";
 
+    /**
+     * Table Despesas
+     */
+    private static final String SQL_CREATE_TABLE_DESPESAS = "CREATE TABLE Despesas(" +
+            DESPESA_COL_NOME + " TEXT NOT NULL, "  +
+            DESPESA_COL_DATA + " TEXT NOT NULL, " +
+            DESPESA_COL_VALOR + " INT NOT NULL, " +
+            DESPESA_COL_CATEGORIA + " DOUBLE NOT NULL, " +
+            DESPESA_COL_PAGOCOM + " INT, " +
+            DESPESA_COL_COMENTARIO + " TEXT, " +
+            COL_ID_VIAGEM + " INT NOT NULL )";
+
+    /**
+     * Table Carteiras
+     */
+    private static final String SQL_CREATE_TABLE_CARTEIRAS = "CREATE TABLE Carteiras(" +
+            CARTEIRA_COL_NOME + " TEXT NOT NULL, " +
+            CARTEIRA_COL_VALOR + " DOUBLE NOT NULL, " +
+            COL_ID_VIAGEM + " INT NOT NULL)";
+
     private static final String SQL_POPULATE_TABLE_VIAGENS = "INSERT INTO Viagens VALUES (" +
             "'Férias de Verão', " +
             "'26/07/2015', " +
-            "'5/08/2015', " +
+            "'05/08/2015', " +
             "null, " +
             "1, " +
             "null)";
@@ -71,6 +89,9 @@ public class BancoDeDados extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_TABLE_VIAGENS);
         db.execSQL(SQL_POPULATE_TABLE_VIAGENS);
+        db.execSQL(SQL_CREATE_TABLE_CARTEIRAS);
+        db.execSQL(SQL_CREATE_TABLE_DESPESAS);
+
     }
 
     @Override

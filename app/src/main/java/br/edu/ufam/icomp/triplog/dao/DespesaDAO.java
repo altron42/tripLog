@@ -32,6 +32,7 @@ public class DespesaDAO {
             despesa.setCategoria(cursor.getInt(cursor.getColumnIndex(BancoDeDados.DESPESA_COL_CATEGORIA)));
             despesa.setPagoCom(cursor.getInt(cursor.getColumnIndex(BancoDeDados.DESPESA_COL_PAGOCOM)));
             despesa.setComentario(cursor.getString(cursor.getColumnIndex(BancoDeDados.DESPESA_COL_COMENTARIO)));
+            despesa.setIdViagem(cursor.getInt(cursor.getColumnIndex(BancoDeDados.COL_ID_VIAGEM)));
         }
         cursor.close();
         return despesa;
@@ -45,14 +46,16 @@ public class DespesaDAO {
                     BancoDeDados.DESPESA_COL_VALOR + ", " +
                     BancoDeDados.DESPESA_COL_CATEGORIA + ", " +
                     BancoDeDados.DESPESA_COL_PAGOCOM + ", " +
+                    BancoDeDados.COL_ID_VIAGEM + ", " +
                     BancoDeDados.DESPESA_COL_COMENTARIO + ") VALUES ('" +
                     despesa.getNome() + "', '" +
-                    despesa.getData() + "', '" +
-                    despesa.getValor() + "', '" +
-                    despesa.getCategoria() + "', " +
-                    despesa.getPagoCom() + ", '" +
+                    despesa.getData() + "', " +
+                    despesa.getValor() + ", " +
+                    despesa.getCategoria() + ", " +
+                    despesa.getPagoCom() + ", " +
+                    despesa.getIdViagem() + ", '" +
                     despesa.getComentario() + "')";
-
+            Log.i(null, despesa.getNome() + " adicionada");
             this.bancoDeDados.execSQL(query);
             return true;
         } catch (SQLException e) {
@@ -61,13 +64,15 @@ public class DespesaDAO {
         }
     }
 
-    public Cursor getDespesas() {
+    public Cursor getDespesas(int idViagem) {
         return this.bancoDeDados.rawQuery("SELECT " +
                 "rowid AS _id, " +
                 BancoDeDados.DESPESA_COL_NOME + ", " +
                 BancoDeDados.DESPESA_COL_DATA + ", " +
                 BancoDeDados.DESPESA_COL_VALOR + ", " +
                 BancoDeDados.DESPESA_COL_CATEGORIA + " " +
-                "FROM Despesas ORDER BY rowid DESC", null);
+                "FROM Despesas WHERE " +
+                BancoDeDados.COL_ID_VIAGEM + "=" + idViagem + " " +
+                "ORDER BY rowid DESC", null);
     }
 }

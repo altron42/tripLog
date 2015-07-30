@@ -24,6 +24,18 @@
             android:name=".controller.PrincipalViagemActivity"
             android:label="@string/title_activity_principal_viagem" >
         </activity>
+        <activity
+            android:name=".controller.NovaCarteiraActivity"
+            android:label="@string/title_activity_nova_carteira" >
+        </activity>
+        <activity
+            android:name=".controller.DespesasActivity"
+            android:label="@string/title_activity_despesas" >
+        </activity>
+        <activity
+            android:name=".controller.NovaDespesaActivity"
+            android:label="@string/title_activity_nova_despesa" >
+        </activity>
     </application>
 
 </manifest>

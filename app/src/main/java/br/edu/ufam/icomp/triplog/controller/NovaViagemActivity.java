@@ -18,13 +18,12 @@ import java.util.Locale;
 import br.edu.ufam.icomp.triplog.R;
 import br.edu.ufam.icomp.triplog.dao.ViagemDAO;
 import br.edu.ufam.icomp.triplog.model.Viagem;
+import br.edu.ufam.icomp.triplog.util.DateHandler;
 
 public class NovaViagemActivity extends Activity {
 
     private EditText et_comeco;
     private EditText et_fim;
-
-    private SimpleDateFormat dateFormat;
 
     private Calendar nova_data;
 
@@ -38,8 +37,6 @@ public class NovaViagemActivity extends Activity {
 
         et_comeco = (EditText) findViewById(R.id.et_data_comeco);
         et_fim = (EditText) findViewById(R.id.et_data_fim);
-
-        dateFormat = new SimpleDateFormat("dd/MM/yyyy", new Locale("pt","BR"));
 
         nova_data = Calendar.getInstance();
 
@@ -80,7 +77,7 @@ public class NovaViagemActivity extends Activity {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
             nova_data.set(year, monthOfYear, dayOfMonth);
-            et_comeco.setText(dateFormat.format(nova_data.getTime()));
+            et_comeco.setText(DateHandler.sdf.format(nova_data.getTime()));
         }
     };
 
@@ -88,7 +85,7 @@ public class NovaViagemActivity extends Activity {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
             nova_data.set(year, monthOfYear, dayOfMonth);
-            et_fim.setText(dateFormat.format(nova_data.getTime()));
+            et_fim.setText(DateHandler.sdf.format(nova_data.getTime()));
         }
     };
 

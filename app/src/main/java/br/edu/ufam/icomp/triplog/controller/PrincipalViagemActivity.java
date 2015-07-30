@@ -2,7 +2,9 @@ package br.edu.ufam.icomp.triplog.controller;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -13,9 +15,12 @@ import java.text.SimpleDateFormat;
 
 import br.edu.ufam.icomp.triplog.R;
 import br.edu.ufam.icomp.triplog.controller.fragments.MenuOpcoesFragment;
+import br.edu.ufam.icomp.triplog.dao.CarteiraDAO;
 import br.edu.ufam.icomp.triplog.model.Viagem;
+import br.edu.ufam.icomp.triplog.util.BancoDeDados;
 
 public class PrincipalViagemActivity extends Activity {
+    private CarteiraDAO carteiraDAO;
 
     private ImageView iv_banner_viagem;
 
@@ -23,7 +28,11 @@ public class PrincipalViagemActivity extends Activity {
     private TextView tv_tipo;
     private TextView tv_orcamento_valor;
 
+    private double orcamento_disponivel;
+
     private Viagem viagem_selecionada;
+
+    public static int id_viagem_selecionada;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +41,10 @@ public class PrincipalViagemActivity extends Activity {
 
         Intent intent = getIntent();
         viagem_selecionada = (Viagem) intent.getParcelableExtra("viagem_selecionada");
+
+        id_viagem_selecionada = viagem_selecionada.getId();
+
+        carteiraDAO = new CarteiraDAO(this);
 
         findViews();
 
@@ -44,7 +57,8 @@ public class PrincipalViagemActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-
+        Log.i(null,"oi " +viagem_selecionada.toString());
+        orcamento_disponivel = carteiraDAO.getOrcamentoDisponivel(viagem_selecionada.getId());
         setarValores();
     }
 
@@ -62,6 +76,8 @@ public class PrincipalViagemActivity extends Activity {
                 " até " + viagem_selecionada.getFim());
         String categoria = viagem_selecionada.getTipo() == 1 ? getString(R.string.rb_tipo_viagem_pessoal) : getString(R.string.rb_tipo_viagem_trabalho);
         tv_tipo.setText(getString(R.string.tv_categoria) + ": " + categoria);
+
+        tv_orcamento_valor.setText("R$ " + orcamento_disponivel);
     }
 
     @Override
