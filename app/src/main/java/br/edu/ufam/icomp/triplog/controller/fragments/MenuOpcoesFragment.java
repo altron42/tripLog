@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.edu.ufam.icomp.triplog.R;
+import br.edu.ufam.icomp.triplog.controller.CarteirasActivity;
 import br.edu.ufam.icomp.triplog.controller.DespesasActivity;
 import br.edu.ufam.icomp.triplog.controller.NovaCarteiraActivity;
 import br.edu.ufam.icomp.triplog.util.Opcoes;
@@ -44,7 +45,7 @@ public class MenuOpcoesFragment extends ListFragment {
                 startActivity(intent_0);
                 break;
             case 4:
-                Intent intent_4 = new Intent(getActivity(), NovaCarteiraActivity.class);
+                Intent intent_4 = new Intent(getActivity(), CarteirasActivity.class);
                 startActivity(intent_4);
                 break;
             default:

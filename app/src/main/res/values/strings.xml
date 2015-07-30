@@ -37,5 +37,7 @@
     <string name="et_categoria_gasto">Categoria</string>
     <string name="et_pago_com">Pago com</string>
     <string name="action_nova_despesa">Nova despesa</string>
+    <string name="title_activity_carteiras">CarteirasActivity</string>
+    <string name="action_nova_carteira">Nova carteira</string>
 
 </resources>

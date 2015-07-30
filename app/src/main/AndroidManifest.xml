@@ -36,6 +36,10 @@
             android:name=".controller.NovaDespesaActivity"
             android:label="@string/title_activity_nova_despesa" >
         </activity>
+        <activity
+            android:name=".controller.CarteirasActivity"
+            android:label="@string/title_activity_carteiras" >
+        </activity>
     </application>
 
 </manifest>

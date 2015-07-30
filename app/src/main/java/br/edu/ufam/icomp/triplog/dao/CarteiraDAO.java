@@ -55,8 +55,17 @@ public class CarteiraDAO {
     }
 
     public boolean editCarteira(Carteira carteira) {
-        String query = ""
-        return false;
+        try {
+            String query = "UPDATE Carteiras SET" +
+                    BancoDeDados.CARTEIRA_COL_NOME + "='" + carteira.getNome() + "', " +
+                    BancoDeDados.CARTEIRA_COL_VALOR + "=" + carteira.getValorDisponivel() + " " +
+                    "WHERE rowid=" + carteira.getId();
+            this.bancoDeDados.execSQL(query);
+            return true;
+        } catch (SQLException e) {
+            Log.e("TripLogDB", e.getMessage());
+            return false;
+        }
     }
 
     public boolean delCarteira(int id) {
