@@ -18,6 +18,7 @@ import br.edu.ufam.icomp.triplog.controller.fragments.MenuOpcoesFragment;
 import br.edu.ufam.icomp.triplog.dao.CarteiraDAO;
 import br.edu.ufam.icomp.triplog.model.Viagem;
 import br.edu.ufam.icomp.triplog.util.BancoDeDados;
+import br.edu.ufam.icomp.triplog.util.Opcoes;
 
 public class PrincipalViagemActivity extends Activity {
     private CarteiraDAO carteiraDAO;
@@ -32,19 +33,18 @@ public class PrincipalViagemActivity extends Activity {
 
     private Viagem viagem_selecionada;
 
-    public static int id_viagem_selecionada;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal_viagem);
 
+        new Opcoes(this);
+        carteiraDAO = new CarteiraDAO(this);
+
         Intent intent = getIntent();
         viagem_selecionada = (Viagem) intent.getParcelableExtra("viagem_selecionada");
 
-        id_viagem_selecionada = viagem_selecionada.getId();
-
-        carteiraDAO = new CarteiraDAO(this);
+        Opcoes.setIdViagem(viagem_selecionada.getId());
 
         findViews();
 
@@ -57,25 +57,22 @@ public class PrincipalViagemActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.i(null,"oi " +viagem_selecionada.toString());
         orcamento_disponivel = carteiraDAO.getOrcamentoDisponivel(viagem_selecionada.getId());
         setarValores();
     }
 
     private void findViews() {
         iv_banner_viagem = (ImageView) findViewById(R.id.iv_banner_viagem);
-
         tv_periodo = (TextView) findViewById(R.id.tv_periodo_viagem);
         tv_tipo = (TextView) findViewById(R.id.tv_tipo);
         tv_orcamento_valor = (TextView) findViewById(R.id.tv_orcamento_valor);
     }
 
     private void setarValores() {
-        DateFormat df = new SimpleDateFormat();
         tv_periodo.setText("De " + viagem_selecionada.getComeco() +
                 " até " + viagem_selecionada.getFim());
-        String categoria = viagem_selecionada.getTipo() == 1 ? getString(R.string.rb_tipo_viagem_pessoal) : getString(R.string.rb_tipo_viagem_trabalho);
-        tv_tipo.setText(getString(R.string.tv_categoria) + ": " + categoria);
+
+        tv_tipo.setText(getString(R.string.tv_categoria) + ": " + Opcoes.getTipoViagem(viagem_selecionada.getTipo()));
 
         tv_orcamento_valor.setText("R$ " + orcamento_disponivel);
     }

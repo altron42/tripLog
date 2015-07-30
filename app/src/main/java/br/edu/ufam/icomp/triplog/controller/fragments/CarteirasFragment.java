@@ -18,6 +18,7 @@ import br.edu.ufam.icomp.triplog.controller.PrincipalViagemActivity;
 import br.edu.ufam.icomp.triplog.dao.CarteiraDAO;
 import br.edu.ufam.icomp.triplog.util.BancoDeDados;
 import br.edu.ufam.icomp.triplog.util.DateHandler;
+import br.edu.ufam.icomp.triplog.util.Opcoes;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -71,7 +72,7 @@ public class CarteirasFragment extends ListFragment {
     }
 
     private void atualizarAdapter() {
-        Cursor novo_cursor = carteiraDAO.getCarteiras(PrincipalViagemActivity.id_viagem_selecionada);
+        Cursor novo_cursor = carteiraDAO.getCarteiras(Opcoes.getIdViagem());
         carteiras_cursor = adapter.swapCursor(novo_cursor);
         adapter.notifyDataSetChanged();
         if (adapter.isEmpty()) {

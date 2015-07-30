@@ -12,11 +12,27 @@ public class Opcoes {
     private static Context context;
     public static String[] menu_opcoes_lista;
     public static String[] categorias_gastos_lista;
+    private static String[] tipo_viagem;
+
+    private static int idViagem;
 
     public Opcoes(Context context) {
         this.context = context;
 
         menu_opcoes_lista = context.getResources().getStringArray(R.array.opcoes_array);
         categorias_gastos_lista = context.getResources().getStringArray(R.array.categorias_array);
+        tipo_viagem = context.getResources().getStringArray(R.array.tipo_viagem_array);
+    }
+
+    public static String getTipoViagem(int i) {
+        return tipo_viagem[i-1];
+    }
+
+    public static int getIdViagem() {
+        return idViagem;
+    }
+
+    public static void setIdViagem(int idViagem) {
+        Opcoes.idViagem = idViagem;
     }
 }

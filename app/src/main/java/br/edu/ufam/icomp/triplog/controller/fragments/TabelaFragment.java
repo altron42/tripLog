@@ -16,6 +16,7 @@ import br.edu.ufam.icomp.triplog.controller.PrincipalViagemActivity;
 import br.edu.ufam.icomp.triplog.dao.DespesaDAO;
 import br.edu.ufam.icomp.triplog.util.BancoDeDados;
 import br.edu.ufam.icomp.triplog.util.DateHandler;
+import br.edu.ufam.icomp.triplog.util.Opcoes;
 
 
 public class TabelaFragment extends ListFragment {
@@ -76,7 +77,7 @@ public class TabelaFragment extends ListFragment {
     }
 
     private void atualizarAdapter() {
-        Cursor novo_cursor = despesaDAO.getDespesas(PrincipalViagemActivity.id_viagem_selecionada);
+        Cursor novo_cursor = despesaDAO.getDespesas(Opcoes.getIdViagem());
         despesas_cursor = adapter_despesas.swapCursor(novo_cursor);
         adapter_despesas.notifyDataSetChanged();
         if (adapter_despesas.isEmpty()) {

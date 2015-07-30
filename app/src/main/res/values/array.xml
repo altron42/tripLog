@@ -10,6 +10,7 @@
     </string-array>
 
     <string-array name="categorias_array">
+        <item>Outros</item>
         <item>Comes e bebes</item>
         <item>Compras</item>
         <item>Passeio turístico</item>
@@ -17,6 +18,11 @@
         <item>Hospedagem</item>
         <item>Combustível</item>
         <item>Imprevistos</item>
-        <item>Outros</item>
     </string-array>
+
+    <string-array name="tipo_viagem_array">
+        <item>Pessoal</item>
+        <item>Trabalho</item>
+    </string-array>
+
 </resources>

@@ -12,6 +12,7 @@ import android.widget.Toast;
 import br.edu.ufam.icomp.triplog.R;
 import br.edu.ufam.icomp.triplog.dao.CarteiraDAO;
 import br.edu.ufam.icomp.triplog.model.Carteira;
+import br.edu.ufam.icomp.triplog.util.Opcoes;
 
 public class NovaCarteiraActivity extends Activity {
     private EditText et_nome;
@@ -53,7 +54,7 @@ public class NovaCarteiraActivity extends Activity {
 
         Carteira carteira = new Carteira();
 
-        carteira.setIdViagem(PrincipalViagemActivity.id_viagem_selecionada);
+        carteira.setIdViagem(Opcoes.getIdViagem());
         carteira.setNome(et_nome.getText().toString());
         carteira.setValorDisponivel(Double.parseDouble(et_valor.getText().toString()));
 

@@ -34,7 +34,7 @@ public class MenuOpcoesFragment extends ListFragment {
         super.onActivityCreated(savedInstance);
 
         setListAdapter(new ArrayAdapter<String>(getActivity(),
-                R.layout.lista_menu_opcoes, R.id.tv_item_nome, new Opcoes(getActivity()).menu_opcoes_lista));
+                R.layout.lista_menu_opcoes, R.id.tv_item_nome, Opcoes.menu_opcoes_lista));
     }
 
     @Override

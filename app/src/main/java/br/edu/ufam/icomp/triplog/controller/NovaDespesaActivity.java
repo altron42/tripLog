@@ -2,33 +2,49 @@ package br.edu.ufam.icomp.triplog.controller;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.SimpleCursorAdapter;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
 
 import br.edu.ufam.icomp.triplog.R;
+import br.edu.ufam.icomp.triplog.dao.CarteiraDAO;
 import br.edu.ufam.icomp.triplog.dao.DespesaDAO;
 import br.edu.ufam.icomp.triplog.model.Despesa;
+import br.edu.ufam.icomp.triplog.util.BancoDeDados;
 import br.edu.ufam.icomp.triplog.util.DateHandler;
+import br.edu.ufam.icomp.triplog.util.Opcoes;
 
 public class NovaDespesaActivity extends Activity {
+
+    private CarteiraDAO carteiraDAO;
 
     private EditText et_nome;
     private EditText et_valor;
     private EditText et_data;
-    private EditText et_categoria;
+    private Spinner spinner_categoria;
+    private Spinner spinner_carteira;
     private EditText et_pagoCom;
     private EditText et_comentario;
 
     private Calendar nova_data;
 
     private DatePickerDialog datePicker;
+
+    private int categoria_selecionada;
+    private int carteira_selecionada;
 
 
     @Override
@@ -44,14 +60,58 @@ public class NovaDespesaActivity extends Activity {
                 nova_data.get(Calendar.YEAR),
                 nova_data.get(Calendar.MONTH),
                 nova_data.get(Calendar.DAY_OF_MONTH));
+
+        ArrayAdapter adapter_spinner_categoria = ArrayAdapter.createFromResource(this, R.array.categorias_array, android.R.layout.simple_spinner_item);
+        adapter_spinner_categoria.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_categoria.setAdapter(adapter_spinner_categoria);
+        spinner_categoria.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.i(null, "Categoria selecionada " + Opcoes.categorias_gastos_lista[position]);
+                categoria_selecionada = position;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        carteiraDAO = new CarteiraDAO(this);
+
+        String[] adapterCol = {BancoDeDados.CARTEIRA_COL_NOME};
+        int[] adapterViews = {android.R.id.text1};
+
+        Cursor cursor = carteiraDAO.getCarteiras(Opcoes.getIdViagem());
+
+        SimpleCursorAdapter scp = new SimpleCursorAdapter(this,
+                android.R.layout.simple_spinner_item,
+                cursor,
+                adapterCol,
+                adapterViews,
+                0);
+        scp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_carteira.setAdapter(scp);
+        spinner_carteira.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.i(null, "Carteira selecionada " + position + " ID: " + id);
+                carteira_selecionada = (int)id;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     private void initViews() {
         et_nome = (EditText) findViewById(R.id.et_nome_item_gasto);
         et_valor = (EditText) findViewById(R.id.et_valor_item_gasto);
         et_data = (EditText) findViewById(R.id.et_data_item_gasto);
-        et_categoria = (EditText) findViewById(R.id.et_categoria_item_gasto);
-        et_pagoCom = (EditText) findViewById(R.id.et_carteira_item_gasto);
+        spinner_categoria = (Spinner) findViewById(R.id.spinner_categoria_gasto);
+        spinner_carteira = (Spinner) findViewById(R.id.spinner_carteira_gasto);
         et_comentario = (EditText) findViewById(R.id.et_comentario_gasto);
     }
 
@@ -95,9 +155,9 @@ public class NovaDespesaActivity extends Activity {
         despesa.setNome(et_nome.getText().toString());
         despesa.setValor(Double.parseDouble(et_valor.getText().toString()));
         despesa.setData(et_data.getText().toString());
-        despesa.setCategoria(Integer.parseInt(et_categoria.getText().toString()));
-        despesa.setPagoCom(Integer.parseInt(et_pagoCom.getText().toString()));
-        despesa.setIdViagem(PrincipalViagemActivity.id_viagem_selecionada);
+        despesa.setCategoria(categoria_selecionada);
+        despesa.setPagoCom(carteira_selecionada);
+        despesa.setIdViagem(Opcoes.getIdViagem());
 
         if (despesaDAO.addDespesa(despesa)) {
             Toast.makeText(this,"Adicionado com sucesso", Toast.LENGTH_SHORT).show();
