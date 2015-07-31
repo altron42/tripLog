@@ -25,4 +25,13 @@
         <item>Trabalho</item>
     </string-array>
 
+    <string-array name="modo_viagem_array">
+        <item>Nenhum</item>
+        <item>Avião</item>
+        <item>Ônibus</item>
+        <item>Carro/Moto</item>
+        <item>Trem</item>
+        <item>Cruseiro</item>
+    </string-array>
+
 </resources>

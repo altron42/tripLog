@@ -44,6 +44,10 @@
             android:name=".controller.SelecionarImagemActivity"
             android:label="@string/title_activity_selecionar_imagem" >
         </activity>
+        <activity
+            android:name=".controller.NovoModoViagemActivity"
+            android:label="@string/title_activity_novo_modo_viagem" >
+        </activity>
     </application>
 
 </manifest>

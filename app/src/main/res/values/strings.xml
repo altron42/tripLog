@@ -11,7 +11,7 @@
     <string name="title_activity_despesas">Despesas</string>
 
     <string name="et_nome_viagem">Nome da viagem</string>
-    <string name="et_descricao">Descrição</string>
+    <string name="et_descricao">Comentário</string>
     <string name="et_comeco_viagem">Data começa</string>
     <string name="et_fim_viagem">Data termina</string>
 
@@ -41,5 +41,14 @@
     <string name="action_nova_carteira">Nova carteira</string>
     <string name="title_activity_selecionar_imagem">Selecionar Imagem</string>
     <string name="bt_selecionar_imagem">Selecionar Imagem</string>
+    <string name="title_activity_novo_modo_viagem">NovoModoViagemActivity</string>
+    <string name="tv_partida">Partida</string>
+    <string name="tv_chegada">Chagada</string>
+    <string name="et_de">De:</string>
+    <string name="et_chegada">Para:</string>
+    <string name="et_data">Data</string>
+    <string name="et_hora">Hora</string>
+    <string name="et_detalhes_modo_viagem">Detalhes etc</string>
+    <string name="tv_modo_viagem">Selecione:</string>
 
 </resources>

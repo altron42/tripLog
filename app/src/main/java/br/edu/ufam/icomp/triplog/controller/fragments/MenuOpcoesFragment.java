@@ -22,6 +22,7 @@ import br.edu.ufam.icomp.triplog.R;
 import br.edu.ufam.icomp.triplog.controller.CarteirasActivity;
 import br.edu.ufam.icomp.triplog.controller.DespesasActivity;
 import br.edu.ufam.icomp.triplog.controller.NovaCarteiraActivity;
+import br.edu.ufam.icomp.triplog.controller.NovoModoViagemActivity;
 import br.edu.ufam.icomp.triplog.util.Opcoes;
 
 /**
@@ -47,6 +48,10 @@ public class MenuOpcoesFragment extends ListFragment {
             case 4:
                 Intent intent_4 = new Intent(getActivity(), CarteirasActivity.class);
                 startActivity(intent_4);
+                break;
+            case 5:
+                Intent intent_5 = new Intent(getActivity(), NovoModoViagemActivity.class);
+                startActivity(intent_5);
                 break;
             default:
                 break;

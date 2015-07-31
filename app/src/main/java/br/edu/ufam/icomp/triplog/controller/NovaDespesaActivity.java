@@ -40,7 +40,6 @@ public class NovaDespesaActivity extends Activity {
     private EditText et_data;
     private Spinner spinner_categoria;
     private Spinner spinner_carteira;
-    private EditText et_pagoCom;
     private EditText et_comentario;
 
     private Calendar nova_data;
@@ -166,6 +165,7 @@ public class NovaDespesaActivity extends Activity {
         despesa.setCategoria(categoria_selecionada);
         despesa.setPagoCom(carteira_selecionada);
         despesa.setIdViagem(Opcoes.getIdViagem());
+        despesa.setComentario(et_comentario.getText().toString());
 
         if (!carteira.subtrairValor(despesa.getValor())) {
             Toast.makeText(this,"A carteira ficou com saldo negativo\nVerifique seu orçamento", Toast.LENGTH_SHORT).show();

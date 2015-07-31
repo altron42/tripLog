@@ -62,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/et_pago_com"
-                android:id="@+id/textView4"
+                android:id="@+id/tv_carteira_gasto"
                 android:layout_weight=".5" />
         </TableRow>
 
@@ -91,7 +91,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/et_comentario_gasto"
         android:hint="@string/et_descricao"
-        android:layout_weight="0.18" />
+        android:layout_weight="0.4" />
 
     <Button
         android:layout_width="match_parent"
