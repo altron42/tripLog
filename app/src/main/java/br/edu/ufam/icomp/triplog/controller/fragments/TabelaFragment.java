@@ -62,7 +62,7 @@ public class TabelaFragment extends ListFragment {
                     return true;
                 }
                 if (columnIndex == cursor.getColumnIndex(BancoDeDados.DESPESA_COL_VALOR)) {
-                    ((TextView) view).setText(String.valueOf(cursor.getDouble(columnIndex)));
+                    ((TextView) view).setText(String.format("%.2f", cursor.getDouble(columnIndex)));
                     return true;
                 }
                 return false;

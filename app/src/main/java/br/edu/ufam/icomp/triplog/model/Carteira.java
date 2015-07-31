@@ -53,8 +53,12 @@ public class Carteira implements Parcelable {
         this.idViagem = idViagem;
     }
 
-    public void subtrairValor(double valor) {
+    public boolean subtrairValor(double valor) {
         valor_disponivel -= valor;
+        if (valor_disponivel >= 0) {
+            return true;
+        }
+        return false;
     }
 
     public void acrescentarValor(double valor) {

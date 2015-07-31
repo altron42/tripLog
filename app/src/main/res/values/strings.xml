@@ -27,17 +27,19 @@
 
     <string name="bt_concliur">Concluir</string>
     <string name="cab_viagens_delete">Apagar</string>
+    <string name="cab_viagens_edit">Editar</string>
     <string name="title_activity_nova_carteira">NovaCarteiraActivity</string>
     <string name="et_nome_carteira">Nome da Carteira</string>
     <string name="et_valor_carteira">Valor disponível</string>
     <string name="et_nome_carteira_ex">Ex: dinheiro para lazer, cartão de crédito, etc...</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_nova_despesa">NovaDespesaActivity</string>
+    <string name="title_activity_nova_despesa">Nova despesa</string>
     <string name="et_categoria_gasto">Categoria</string>
     <string name="et_pago_com">Pago com</string>
     <string name="action_nova_despesa">Nova despesa</string>
-    <string name="title_activity_carteiras">CarteirasActivity</string>
+    <string name="title_activity_carteiras">Carteiras de Viagem</string>
     <string name="action_nova_carteira">Nova carteira</string>
+    <string name="title_activity_selecionar_imagem">Selecionar Imagem</string>
+    <string name="bt_selecionar_imagem">Selecionar Imagem</string>
 
 </resources>

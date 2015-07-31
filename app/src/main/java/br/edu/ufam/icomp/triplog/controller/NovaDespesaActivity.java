@@ -2,8 +2,10 @@ package br.edu.ufam.icomp.triplog.controller;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,11 +19,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.util.Calendar;
 
 import br.edu.ufam.icomp.triplog.R;
 import br.edu.ufam.icomp.triplog.dao.CarteiraDAO;
 import br.edu.ufam.icomp.triplog.dao.DespesaDAO;
+import br.edu.ufam.icomp.triplog.model.Carteira;
 import br.edu.ufam.icomp.triplog.model.Despesa;
 import br.edu.ufam.icomp.triplog.util.BancoDeDados;
 import br.edu.ufam.icomp.triplog.util.DateHandler;
@@ -151,13 +155,22 @@ public class NovaDespesaActivity extends Activity {
 
     public void btConcluirNovaDespesa(View view) {
         DespesaDAO despesaDAO = new DespesaDAO(this);
+        CarteiraDAO carteiraDAO = new CarteiraDAO(this);
+
         Despesa despesa = new Despesa();
+        Carteira carteira = carteiraDAO.getCarteira(carteira_selecionada);
+
         despesa.setNome(et_nome.getText().toString());
         despesa.setValor(Double.parseDouble(et_valor.getText().toString()));
         despesa.setData(et_data.getText().toString());
         despesa.setCategoria(categoria_selecionada);
         despesa.setPagoCom(carteira_selecionada);
         despesa.setIdViagem(Opcoes.getIdViagem());
+
+        if (!carteira.subtrairValor(despesa.getValor())) {
+            Toast.makeText(this,"A carteira ficou com saldo negativo\nVerifique seu orçamento", Toast.LENGTH_SHORT).show();
+        }
+        carteiraDAO.editCarteira(carteira);
 
         if (despesaDAO.addDespesa(despesa)) {
             Toast.makeText(this,"Adicionado com sucesso", Toast.LENGTH_SHORT).show();

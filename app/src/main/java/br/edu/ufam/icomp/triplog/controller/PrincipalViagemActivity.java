@@ -3,6 +3,7 @@ package br.edu.ufam.icomp.triplog.controller;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -10,6 +11,9 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -52,6 +56,8 @@ public class PrincipalViagemActivity extends Activity {
             MenuOpcoesFragment lista = new MenuOpcoesFragment();
             getFragmentManager().beginTransaction().add(R.id.fragment_lista_opcoes, lista).commit();
         }
+
+        setTitle(viagem_selecionada.getNome());
     }
 
     @Override
@@ -63,6 +69,7 @@ public class PrincipalViagemActivity extends Activity {
 
     private void findViews() {
         iv_banner_viagem = (ImageView) findViewById(R.id.iv_banner_viagem);
+        iv_banner_viagem.setScaleType(ImageView.ScaleType.CENTER_CROP);
         tv_periodo = (TextView) findViewById(R.id.tv_periodo_viagem);
         tv_tipo = (TextView) findViewById(R.id.tv_tipo);
         tv_orcamento_valor = (TextView) findViewById(R.id.tv_orcamento_valor);
@@ -74,7 +81,21 @@ public class PrincipalViagemActivity extends Activity {
 
         tv_tipo.setText(getString(R.string.tv_categoria) + ": " + Opcoes.getTipoViagem(viagem_selecionada.getTipo()));
 
-        tv_orcamento_valor.setText("R$ " + orcamento_disponivel);
+        tv_orcamento_valor.setText("R$ " + String.format("%.2f", orcamento_disponivel));
+
+        String nome_imagem = viagem_selecionada.getIcone();
+
+        if (nome_imagem == null || nome_imagem.matches("null")) {
+            iv_banner_viagem.setImageResource(R.mipmap.ic_launcher);
+        } else {
+            File file = new File(this.getFilesDir(),nome_imagem);
+            try {
+                iv_banner_viagem.setImageBitmap(BitmapFactory.decodeStream(new FileInputStream(file)));
+            } catch (FileNotFoundException e) {
+                Log.e(null,"Imagem não encontrada");
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override

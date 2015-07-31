@@ -4,6 +4,8 @@ package br.edu.ufam.icomp.triplog.controller.fragments;
 import android.app.ListFragment;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.text.Html;
@@ -20,10 +22,14 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.text.ParseException;
 
 import br.edu.ufam.icomp.triplog.R;
 import br.edu.ufam.icomp.triplog.controller.PrincipalViagemActivity;
+import br.edu.ufam.icomp.triplog.controller.SelecionarImagemActivity;
 import br.edu.ufam.icomp.triplog.dao.ViagemDAO;
 import br.edu.ufam.icomp.triplog.model.Viagem;
 import br.edu.ufam.icomp.triplog.util.BancoDeDados;
@@ -82,8 +88,13 @@ public class ListaViagensFragment extends ListFragment {
                         Log.d("ImageView", "Nome da imagem não especificado");
                         iv_icone.setImageResource(R.mipmap.ic_launcher);
                     } else {
-                        int resource = getResources().getIdentifier(nome_imagem, "drawable", null);
-                        iv_icone.setImageResource(resource);
+                        File file = new File(getActivity().getFilesDir(),nome_imagem);
+                        try {
+                            iv_icone.setImageBitmap(BitmapFactory.decodeStream(new FileInputStream(file)));
+                        } catch (FileNotFoundException e) {
+                            Log.e(null,"Imagem não encontrada");
+                            e.printStackTrace();
+                        }
                     }
                     return true;
                 }
@@ -132,16 +143,18 @@ public class ListaViagensFragment extends ListFragment {
     public void onResume() {
         super.onResume();
         atualizarAdapter();
+        getListView().setItemChecked(position_selecionado,false);
+        if (mActionMode != null) mActionMode.finish();
     }
 
     @Override
     public void onListItemClick(ListView l, View v, int pos, long id) {
         if (mActionMode != null) {
             id_selecionado = id;
+            position_selecionado = pos;
             return;
         }
 
-        Toast.makeText(getActivity(),"Clicado item id: "+ id + " POS: " + pos, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getActivity(), PrincipalViagemActivity.class);
         Viagem viagem_selecionada = viagemDAO.getViagem((int)id);
         Log.i(null,"Id antes " + id);
@@ -183,6 +196,11 @@ public class ListaViagensFragment extends ListFragment {
                         Toast.makeText(getActivity(), "Erro ao apagar " + id_selecionado, Toast.LENGTH_SHORT).show();
                     }
                     mode.finish();
+                    return true;
+                case R.id.cab_item_edit:
+                    Intent intent = new Intent(getActivity(), SelecionarImagemActivity.class);
+                    intent.putExtra("id_viagem",id_selecionado);
+                    startActivity(intent);
                     return true;
                 default:
                     return false;

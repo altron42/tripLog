@@ -29,9 +29,11 @@ public class CarteiraDAO {
         String query = "SELECT * FROM Carteiras WHERE rowid=" + id;
         Cursor cursor = this.bancoDeDados.rawQuery(query, null);
         if (cursor.moveToNext()) {
-            carteira = new Carteira(
-                    cursor.getString(cursor.getColumnIndex(BancoDeDados.CARTEIRA_COL_NOME)),
-                    cursor.getDouble(cursor.getColumnIndex(BancoDeDados.CARTEIRA_COL_VALOR)));
+            carteira = new Carteira();
+            carteira.setId(id);
+            carteira.setNome(cursor.getString(cursor.getColumnIndex(BancoDeDados.CARTEIRA_COL_NOME)));
+            carteira.setValorDisponivel(cursor.getDouble(cursor.getColumnIndex(BancoDeDados.CARTEIRA_COL_VALOR)));
+            carteira.setIdViagem(cursor.getInt(cursor.getColumnIndex(BancoDeDados.COL_ID_VIAGEM)));
         }
         cursor.close();
         return carteira;
@@ -56,7 +58,7 @@ public class CarteiraDAO {
 
     public boolean editCarteira(Carteira carteira) {
         try {
-            String query = "UPDATE Carteiras SET" +
+            String query = "UPDATE Carteiras SET " +
                     BancoDeDados.CARTEIRA_COL_NOME + "='" + carteira.getNome() + "', " +
                     BancoDeDados.CARTEIRA_COL_VALOR + "=" + carteira.getValorDisponivel() + " " +
                     "WHERE rowid=" + carteira.getId();
