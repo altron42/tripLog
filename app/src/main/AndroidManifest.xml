@@ -48,6 +48,10 @@
             android:name=".controller.NovoModoViagemActivity"
             android:label="@string/title_activity_novo_modo_viagem" >
         </activity>
+        <activity
+            android:name=".controller.NovaHospedagemActivity"
+            android:label="@string/title_activity_nova_hospedagem" >
+        </activity>
     </application>
 
 </manifest>

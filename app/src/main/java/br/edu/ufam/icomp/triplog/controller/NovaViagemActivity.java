@@ -78,6 +78,9 @@ public class NovaViagemActivity extends Activity {
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
             nova_data.set(year, monthOfYear, dayOfMonth);
             et_comeco.setText(DateHandler.sdf.format(nova_data.getTime()));
+            if (et_fim.getText().toString().isEmpty()) {
+                datePicker_fim.updateDate(year,monthOfYear,dayOfMonth);
+            }
         }
     };
 

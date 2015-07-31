@@ -1,7 +1,8 @@
 package br.edu.ufam.icomp.triplog.controller;
 
 import android.app.Activity;
-import android.support.v7.app.ActionBarActivity;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -10,12 +11,16 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
+import android.widget.TimePicker;
+
+import java.util.Calendar;
 
 import br.edu.ufam.icomp.triplog.R;
+import br.edu.ufam.icomp.triplog.util.DateHandler;
 import br.edu.ufam.icomp.triplog.util.Opcoes;
 
 public class NovoModoViagemActivity extends Activity {
@@ -29,16 +34,20 @@ public class NovoModoViagemActivity extends Activity {
     EditText et_partida_data;
     EditText et_partida_hora;
     EditText et_chegada;
-    EditText et_chegeda_data;
+    EditText et_chegada_data;
     EditText et_chegada_hora;
     EditText et_comentario;
-
-    TextView tv_partida;
-    TextView tv_chegada;
 
     Button bt_concluir;
 
     LinearLayout layout;
+
+    private Calendar nova_data;
+
+    private DatePickerDialog datePicker_partida;
+    private TimePickerDialog timePicker_partida;
+    private DatePickerDialog datePicker_chegada;
+    private TimePickerDialog timePicker_chegada;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +64,7 @@ public class NovoModoViagemActivity extends Activity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Log.i(null, "Categoria selecionada " + Opcoes.modo_viagem[position]);
                 modo_selecionado = position;
-                if (position!= 0) {
+                if (position != 0) {
                     setViewsVisibility(View.VISIBLE);
                 } else {
                     setViewsVisibility(View.GONE);
@@ -68,6 +77,29 @@ public class NovoModoViagemActivity extends Activity {
             }
         });
 
+        nova_data = Calendar.getInstance();
+
+        datePicker_partida = new DatePickerDialog(this,
+                listener_partida,
+                nova_data.get(Calendar.YEAR),
+                nova_data.get(Calendar.MONTH),
+                nova_data.get(Calendar.DAY_OF_MONTH));
+        datePicker_chegada = new DatePickerDialog(this,
+                listener_chegada,
+                nova_data.get(Calendar.YEAR),
+                nova_data.get(Calendar.MONTH),
+                nova_data.get(Calendar.DAY_OF_MONTH));
+
+        timePicker_partida = new TimePickerDialog(this,
+                listener_hora_partida,
+                nova_data.get(Calendar.HOUR_OF_DAY),
+                nova_data.get(Calendar.MINUTE),
+                true);
+        timePicker_chegada = new TimePickerDialog(this,
+                listener_hora_chegada,
+                nova_data.get(Calendar.HOUR_OF_DAY),
+                nova_data.get(Calendar.MINUTE),
+                true);
     }
 
     @Override
@@ -102,7 +134,7 @@ public class NovoModoViagemActivity extends Activity {
         et_partida_hora = (EditText) findViewById(R.id.et_hora_partida);
 
         et_chegada = (EditText) findViewById(R.id.et_chegada);
-        et_chegeda_data = (EditText) findViewById(R.id.et_data_chegada);
+        et_chegada_data = (EditText) findViewById(R.id.et_data_chegada);
         et_chegada_hora = (EditText) findViewById(R.id.et_hora_chegada);
 
         et_comentario = (EditText) findViewById(R.id.et_comentario_modo);
@@ -116,5 +148,49 @@ public class NovoModoViagemActivity extends Activity {
 
     public void setViewsVisibility(int viewsVisibility) {
         layout.setVisibility(viewsVisibility);
+    }
+
+    private DatePickerDialog.OnDateSetListener listener_partida = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            nova_data.set(year, monthOfYear, dayOfMonth);
+            et_partida_data.setText(DateHandler.sdf.format(nova_data.getTime()));
+            if (et_chegada_data.getText().toString().isEmpty()) {
+                datePicker_chegada.updateDate(year,monthOfYear,dayOfMonth);
+            }
+        }
+    };
+
+    private DatePickerDialog.OnDateSetListener listener_chegada = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            nova_data.set(year, monthOfYear, dayOfMonth);
+            et_chegada_data.setText(DateHandler.sdf.format(nova_data.getTime()));
+        }
+    };
+
+    private TimePickerDialog.OnTimeSetListener listener_hora_partida = new TimePickerDialog.OnTimeSetListener() {
+        @Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            nova_data.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            nova_data.set(Calendar.MINUTE, minute);
+            et_partida_hora.setText(DateHandler.sdf_time.format(nova_data.getTime()));
+        }
+    };
+    private TimePickerDialog.OnTimeSetListener listener_hora_chegada = new TimePickerDialog.OnTimeSetListener() {
+        @Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            nova_data.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            nova_data.set(Calendar.MINUTE, minute);
+            et_chegada_hora.setText(DateHandler.sdf_time.format(nova_data.getTime()));
+        }
+    };
+
+    public void showDatePickerDialog(View view) {
+        if (view == et_partida_data) { datePicker_partida.show(); } else { datePicker_chegada.show(); }
+    }
+
+    public void showTimePickerDialog(View view) {
+        if (view == et_partida_hora) { timePicker_partida.show(); } else { timePicker_chegada.show(); }
     }
 }

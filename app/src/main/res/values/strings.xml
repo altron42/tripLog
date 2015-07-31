@@ -50,5 +50,6 @@
     <string name="et_hora">Hora</string>
     <string name="et_detalhes_modo_viagem">Detalhes etc</string>
     <string name="tv_modo_viagem">Selecione:</string>
+    <string name="title_activity_nova_hospedagem">NovaHospedagemActivity</string>
 
 </resources>

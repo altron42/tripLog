@@ -67,7 +67,10 @@
                 android:ems="10"
                 android:id="@+id/et_data_partida"
                 android:layout_weight=".33"
-                android:hint="@string/et_data" />
+                android:hint="@string/et_data"
+                android:editable="false"
+                android:focusable="false"
+                android:onClick="showDatePickerDialog"/>
 
             <EditText
                 android:layout_width="wrap_content"
@@ -75,8 +78,11 @@
                 android:inputType="time"
                 android:ems="10"
                 android:id="@+id/et_hora_partida"
-                android:layout_weight=".33"
-                android:hint="@string/et_hora" />
+                android:layout_weight=".5"
+                android:hint="@string/et_hora"
+                android:editable="false"
+                android:focusable="false"
+                android:onClick="showTimePickerDialog" />
         </LinearLayout>
 
         <TextView
@@ -106,7 +112,10 @@
                 android:ems="10"
                 android:id="@+id/et_data_chegada"
                 android:layout_weight=".33"
-                android:hint="@string/et_data" />
+                android:hint="@string/et_data"
+                android:editable="false"
+                android:focusable="false"
+                android:onClick="showDatePickerDialog" />
 
             <EditText
                 android:layout_width="wrap_content"
@@ -114,13 +123,16 @@
                 android:inputType="time"
                 android:ems="10"
                 android:id="@+id/et_hora_chegada"
-                android:layout_weight=".33"
-                android:hint="@string/et_hora" />
+                android:layout_weight=".5"
+                android:hint="@string/et_hora"
+                android:editable="false"
+                android:focusable="false"
+                android:onClick="showTimePickerDialog" />
         </LinearLayout>
 
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:inputType="textCapWords|textMultiLine"
             android:ems="10"
             android:id="@+id/et_comentario_modo"

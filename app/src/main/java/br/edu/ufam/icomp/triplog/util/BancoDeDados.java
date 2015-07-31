@@ -11,6 +11,12 @@ public class BancoDeDados extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 4;
     public static final String DATABASE_NAME = "TripLogApp.db";
 
+    private static final String COLTYPE_TEXT = " TEXT";
+    private static final String COLTYPE_INT = " INT";
+    private static final String COLTYPE_DOUBLE = " DOUBLE";
+    private static final String COLTYPE_NOT_NULL = " NOT NULL";
+
+
 
     public static final String COL_ID_VIAGEM = "id_viagem";
 
@@ -41,35 +47,63 @@ public class BancoDeDados extends SQLiteOpenHelper {
     public static final String CARTEIRA_COL_VALOR = "valor_disponivel";
 
     /**
+     * Column names for table ModoViagem
+     */
+    public static final String MODOVIAGEM_COL_NOME = "detalhes";
+    public static final String MODOVIAGEM_COL_PARTIDA = "partida";
+    public static final String MODOVIAGEM_COL_PARTIDA_DATA = "partida_data";
+    public static final String MODOVIAGEM_COL_PARTIDA_HORA = "partida_hora";
+    public static final String MODOVIAGEM_COL_CHEGADA = "chegada";
+    public static final String MODOVIAGEM_COL_CHEGADA_DATA = "chegada_data";
+    public static final String MODOVIAGEM_COL_CHEGADA_HORA = "chegada_hora";
+    public static final String MODOVIAGEM_COL_COMENTARIO = "comentario";
+    public static final String MODOVIAGEM_COL_TIPO_MODO = "tipo_modo";
+
+    /**
      * Table Viagens
      */
     private static final String SQL_CREATE_TABLE_VIAGENS = "CREATE TABLE Viagens(" +
-            VIAGEM_COL_NOME + " TEXT NOT NULL, " +
-            VIAGEM_COL_COMECO + " TEXT NOT NULL, " +
-            VIAGEM_COL_FIM + " TEXT NOT NULL, " +
-            VIAGEM_COL_DETALHES + " TEXT, " +
-            VIAGEM_COL_TIPO + " INT NOT NULL, " +
-            VIAGEM_COL_ICONE + " TEXT )";
+            VIAGEM_COL_NOME + COLTYPE_TEXT + COLTYPE_NOT_NULL + ", " +
+            VIAGEM_COL_COMECO + COLTYPE_TEXT + COLTYPE_NOT_NULL + ", " +
+            VIAGEM_COL_FIM + COLTYPE_TEXT + COLTYPE_NOT_NULL + ", " +
+            VIAGEM_COL_DETALHES + COLTYPE_TEXT +", " +
+            VIAGEM_COL_TIPO + COLTYPE_INT + COLTYPE_NOT_NULL + ", " +
+            VIAGEM_COL_ICONE + COLTYPE_TEXT + ")";
 
     /**
      * Table Despesas
      */
     private static final String SQL_CREATE_TABLE_DESPESAS = "CREATE TABLE Despesas(" +
-            DESPESA_COL_NOME + " TEXT NOT NULL, "  +
-            DESPESA_COL_DATA + " TEXT NOT NULL, " +
-            DESPESA_COL_VALOR + " INT NOT NULL, " +
-            DESPESA_COL_CATEGORIA + " DOUBLE NOT NULL, " +
-            DESPESA_COL_PAGOCOM + " INT, " +
-            DESPESA_COL_COMENTARIO + " TEXT, " +
-            COL_ID_VIAGEM + " INT NOT NULL )";
+            DESPESA_COL_NOME + COLTYPE_TEXT + COLTYPE_NOT_NULL + ", " +
+            DESPESA_COL_DATA + COLTYPE_TEXT + COLTYPE_NOT_NULL + ", " +
+            DESPESA_COL_VALOR + COLTYPE_DOUBLE + COLTYPE_NOT_NULL + ", " +
+            DESPESA_COL_CATEGORIA + COLTYPE_INT + COLTYPE_NOT_NULL + ", " +
+            DESPESA_COL_PAGOCOM + COLTYPE_INT + COLTYPE_NOT_NULL + ", " +
+            DESPESA_COL_COMENTARIO + COLTYPE_TEXT + ", " +
+            COL_ID_VIAGEM + COLTYPE_INT + COLTYPE_NOT_NULL + ")";
 
     /**
      * Table Carteiras
      */
     private static final String SQL_CREATE_TABLE_CARTEIRAS = "CREATE TABLE Carteiras(" +
-            CARTEIRA_COL_NOME + " TEXT NOT NULL, " +
-            CARTEIRA_COL_VALOR + " DOUBLE NOT NULL, " +
-            COL_ID_VIAGEM + " INT NOT NULL)";
+            CARTEIRA_COL_NOME + COLTYPE_TEXT + COLTYPE_NOT_NULL + ", " +
+            CARTEIRA_COL_VALOR + COLTYPE_DOUBLE + COLTYPE_NOT_NULL + ", " +
+            COL_ID_VIAGEM + COLTYPE_INT + COLTYPE_NOT_NULL + ")";
+
+    /**
+     * Table ModoViagem
+     */
+    private static final String SQL_CREATE_TABLE_MODOVIAGEM = "CREATE TABLE ModoViagem(" +
+            MODOVIAGEM_COL_NOME + COLTYPE_TEXT + COLTYPE_NOT_NULL + ", " +
+            MODOVIAGEM_COL_PARTIDA + COLTYPE_TEXT + COLTYPE_NOT_NULL + ", " +
+            MODOVIAGEM_COL_PARTIDA_DATA + COLTYPE_TEXT + COLTYPE_NOT_NULL + ", " +
+            MODOVIAGEM_COL_PARTIDA_HORA + COLTYPE_TEXT + COLTYPE_NOT_NULL + ", " +
+            MODOVIAGEM_COL_CHEGADA + COLTYPE_TEXT + COLTYPE_NOT_NULL + ", " +
+            MODOVIAGEM_COL_CHEGADA_DATA + COLTYPE_TEXT + COLTYPE_NOT_NULL + ", " +
+            MODOVIAGEM_COL_CHEGADA_HORA + COLTYPE_TEXT + COLTYPE_NOT_NULL + ", " +
+            MODOVIAGEM_COL_COMENTARIO + COLTYPE_TEXT + ", " +
+            MODOVIAGEM_COL_TIPO_MODO + COLTYPE_INT + ", " +
+            COL_ID_VIAGEM + COLTYPE_INT + COLTYPE_NOT_NULL + ")";
 
     private static final String SQL_POPULATE_TABLE_VIAGENS = "INSERT INTO Viagens VALUES (" +
             "'Férias de Verão', " +
@@ -91,6 +125,7 @@ public class BancoDeDados extends SQLiteOpenHelper {
         db.execSQL(SQL_POPULATE_TABLE_VIAGENS);
         db.execSQL(SQL_CREATE_TABLE_CARTEIRAS);
         db.execSQL(SQL_CREATE_TABLE_DESPESAS);
+        db.execSQL(SQL_CREATE_TABLE_MODOVIAGEM);
 
     }
 
