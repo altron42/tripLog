@@ -5,26 +5,15 @@ import android.app.ListFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
 
 import br.edu.ufam.icomp.triplog.R;
 import br.edu.ufam.icomp.triplog.controller.CarteirasActivity;
 import br.edu.ufam.icomp.triplog.controller.DespesasActivity;
 import br.edu.ufam.icomp.triplog.controller.HospedagemActivity;
-import br.edu.ufam.icomp.triplog.controller.NovaCarteiraActivity;
-import br.edu.ufam.icomp.triplog.controller.NovaHospedagemActivity;
-import br.edu.ufam.icomp.triplog.controller.NovoModoViagemActivity;
+import br.edu.ufam.icomp.triplog.controller.ModoViagemActivity;
 import br.edu.ufam.icomp.triplog.util.Opcoes;
 
 /**
@@ -51,12 +40,14 @@ public class MenuOpcoesFragment extends ListFragment {
                 Intent intent_1 = new Intent(getActivity(), HospedagemActivity.class);
                 startActivity(intent_1);
                 break;
+            case Opcoes.opcao_atividades:
+                break;
             case Opcoes.opcao_carteiras:
                 Intent intent_4 = new Intent(getActivity(), CarteirasActivity.class);
                 startActivity(intent_4);
                 break;
             case Opcoes.opcao_modo:
-                Intent intent_5 = new Intent(getActivity(), NovoModoViagemActivity.class);
+                Intent intent_5 = new Intent(getActivity(), ModoViagemActivity.class);
                 startActivity(intent_5);
                 break;
             default:

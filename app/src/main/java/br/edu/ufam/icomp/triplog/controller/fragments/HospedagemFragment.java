@@ -10,10 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
+
+import java.text.ParseException;
 
 import br.edu.ufam.icomp.triplog.R;
 import br.edu.ufam.icomp.triplog.dao.HospedagemDAO;
 import br.edu.ufam.icomp.triplog.util.BancoDeDados;
+import br.edu.ufam.icomp.triplog.util.DateHandler;
 import br.edu.ufam.icomp.triplog.util.Opcoes;
 
 /**
@@ -46,6 +50,33 @@ public class HospedagemFragment extends ListFragment {
                 colunasPara,
                 0);
         setListAdapter(cursorAdapter);
+
+        cursorAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
+            @Override
+            public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
+                if (columnIndex == cursor.getColumnIndex(BancoDeDados.HOSPEDAGEM_COL_DATA_CHECKIN)) {
+                    try {
+                        String s = DateHandler.dateFormatDefault.format(DateHandler.sdf.parse(cursor.getString(cursor.getColumnIndex(BancoDeDados.HOSPEDAGEM_COL_DATA_CHECKIN)))) + " " +
+                                DateHandler.timeFormat.format(DateHandler.sdf_time.parse(cursor.getString(cursor.getColumnIndex(BancoDeDados.HOSPEDAGEM_COL_HORA_CHECKIN))));
+                        ((TextView) view).setText(getResources().getString(R.string.tv_check_in) + ": " + s);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    return true;
+                }
+                if (columnIndex == cursor.getColumnIndex(BancoDeDados.HOSPEDAGEM_COL_DATA_CHECKOUT)) {
+                    try {
+                        String s = DateHandler.dateFormatDefault.format(DateHandler.sdf.parse(cursor.getString(cursor.getColumnIndex(BancoDeDados.HOSPEDAGEM_COL_DATA_CHECKOUT)))) + " " +
+                                DateHandler.timeFormat.format(DateHandler.sdf_time.parse(cursor.getString(cursor.getColumnIndex(BancoDeDados.HOSPEDAGEM_COL_HORA_CHECKOUT))));
+                        ((TextView) view).setText(getResources().getString(R.string.tv_check_out) + ": " + s);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     @Override

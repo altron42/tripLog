@@ -28,9 +28,9 @@
         <item>Nenhum</item>
         <item>Avião</item>
         <item>Ônibus</item>
-        <item>Carro/Moto</item>
+        <item>Carro</item>
         <item>Trem</item>
-        <item>Cruseiro</item>
+        <item>Cruzeiro</item>
     </string-array>
 
 </resources>

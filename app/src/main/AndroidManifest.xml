@@ -56,6 +56,10 @@
             android:name=".controller.HospedagemActivity"
             android:label="@string/title_activity_hospedagem" >
         </activity>
+        <activity
+            android:name=".controller.ModoViagemActivity"
+            android:label="@string/title_activity_modo_viagem" >
+        </activity>
     </application>
 
 </manifest>

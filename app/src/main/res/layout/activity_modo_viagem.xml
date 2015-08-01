@@ -1,13 +1,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="br.edu.ufam.icomp.triplog.controller.CarteirasActivity"
+    tools:context="br.edu.ufam.icomp.triplog.controller.ModoViagemActivity"
     android:orientation="vertical">
 
     <fragment
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:name="br.edu.ufam.icomp.triplog.controller.fragments.CarteirasFragment"
-        android:id="@+id/fragment_carteiras"
-        tools:layout="@layout/fragment_carteiras" />
+        android:name="br.edu.ufam.icomp.triplog.controller.fragments.ModoViagemFragment"
+        android:id="@+id/fragment_modo_viagem" />
 </LinearLayout>
