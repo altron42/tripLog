@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="br.edu.ufam.icomp.triplog.controller.HospedagemActivity">
+    <item
+        android:id="@+id/action_nova_hospedagem"
+        android:title="@string/action_nova_hospedagem"
+        android:icon="@drawable/ic_add_white_24dp"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom|withText" />
+</menu>

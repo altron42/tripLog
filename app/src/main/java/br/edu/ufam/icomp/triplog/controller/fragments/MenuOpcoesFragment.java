@@ -21,7 +21,9 @@ import java.util.List;
 import br.edu.ufam.icomp.triplog.R;
 import br.edu.ufam.icomp.triplog.controller.CarteirasActivity;
 import br.edu.ufam.icomp.triplog.controller.DespesasActivity;
+import br.edu.ufam.icomp.triplog.controller.HospedagemActivity;
 import br.edu.ufam.icomp.triplog.controller.NovaCarteiraActivity;
+import br.edu.ufam.icomp.triplog.controller.NovaHospedagemActivity;
 import br.edu.ufam.icomp.triplog.controller.NovoModoViagemActivity;
 import br.edu.ufam.icomp.triplog.util.Opcoes;
 
@@ -41,15 +43,19 @@ public class MenuOpcoesFragment extends ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         switch (position) {
-            case 0:
+            case Opcoes.opcao_despesas:
                 Intent intent_0 = new Intent(getActivity(), DespesasActivity.class);
                 startActivity(intent_0);
                 break;
-            case 4:
+            case Opcoes.opcao_hospedagem:
+                Intent intent_1 = new Intent(getActivity(), HospedagemActivity.class);
+                startActivity(intent_1);
+                break;
+            case Opcoes.opcao_carteiras:
                 Intent intent_4 = new Intent(getActivity(), CarteirasActivity.class);
                 startActivity(intent_4);
                 break;
-            case 5:
+            case Opcoes.opcao_modo:
                 Intent intent_5 = new Intent(getActivity(), NovoModoViagemActivity.class);
                 startActivity(intent_5);
                 break;

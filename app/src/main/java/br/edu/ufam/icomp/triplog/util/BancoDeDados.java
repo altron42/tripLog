@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by micael on 26/07/15.
  */
 public class BancoDeDados extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 4;
+    public static final int DATABASE_VERSION = 5;
     public static final String DATABASE_NAME = "TripLogApp.db";
 
     private static final String COLTYPE_TEXT = " TEXT";
@@ -60,9 +60,19 @@ public class BancoDeDados extends SQLiteOpenHelper {
     public static final String MODOVIAGEM_COL_TIPO_MODO = "tipo_modo";
 
     /**
+     * Column names for table Hospedagens
+     */
+    public static final String HOSPEDAGEM_COL_NOME = "nome";
+    public static final String HOSPEDAGEM_COL_DATA_CHECKIN = "checkin_data";
+    public static final String HOSPEDAGEM_COL_HORA_CHECKIN = "checkin_hora";
+    public static final String HOSPEDAGEM_COL_DATA_CHECKOUT = "checkout_data";
+    public static final String HOSPEDAGEM_COL_HORA_CHECKOUT = "checkout_hora";
+    public static final String HOSPEDAGEM_COL_COMENTARIO = "comentario";
+
+    /**
      * Table Viagens
      */
-    private static final String SQL_CREATE_TABLE_VIAGENS = "CREATE TABLE Viagens(" +
+    private static final String SQL_CREATE_TABLE_VIAGENS = "CREATE TABLE IF NOT EXISTS Viagens(" +
             VIAGEM_COL_NOME + COLTYPE_TEXT + COLTYPE_NOT_NULL + ", " +
             VIAGEM_COL_COMECO + COLTYPE_TEXT + COLTYPE_NOT_NULL + ", " +
             VIAGEM_COL_FIM + COLTYPE_TEXT + COLTYPE_NOT_NULL + ", " +
@@ -73,7 +83,7 @@ public class BancoDeDados extends SQLiteOpenHelper {
     /**
      * Table Despesas
      */
-    private static final String SQL_CREATE_TABLE_DESPESAS = "CREATE TABLE Despesas(" +
+    private static final String SQL_CREATE_TABLE_DESPESAS = "CREATE TABLE IF NOT EXISTS Despesas(" +
             DESPESA_COL_NOME + COLTYPE_TEXT + COLTYPE_NOT_NULL + ", " +
             DESPESA_COL_DATA + COLTYPE_TEXT + COLTYPE_NOT_NULL + ", " +
             DESPESA_COL_VALOR + COLTYPE_DOUBLE + COLTYPE_NOT_NULL + ", " +
@@ -85,7 +95,7 @@ public class BancoDeDados extends SQLiteOpenHelper {
     /**
      * Table Carteiras
      */
-    private static final String SQL_CREATE_TABLE_CARTEIRAS = "CREATE TABLE Carteiras(" +
+    private static final String SQL_CREATE_TABLE_CARTEIRAS = "CREATE TABLE IF NOT EXISTS Carteiras(" +
             CARTEIRA_COL_NOME + COLTYPE_TEXT + COLTYPE_NOT_NULL + ", " +
             CARTEIRA_COL_VALOR + COLTYPE_DOUBLE + COLTYPE_NOT_NULL + ", " +
             COL_ID_VIAGEM + COLTYPE_INT + COLTYPE_NOT_NULL + ")";
@@ -93,7 +103,7 @@ public class BancoDeDados extends SQLiteOpenHelper {
     /**
      * Table ModoViagem
      */
-    private static final String SQL_CREATE_TABLE_MODOVIAGEM = "CREATE TABLE ModoViagem(" +
+    private static final String SQL_CREATE_TABLE_MODOVIAGEM = "CREATE TABLE IF NOT EXISTS ModoViagem(" +
             MODOVIAGEM_COL_NOME + COLTYPE_TEXT + COLTYPE_NOT_NULL + ", " +
             MODOVIAGEM_COL_PARTIDA + COLTYPE_TEXT + COLTYPE_NOT_NULL + ", " +
             MODOVIAGEM_COL_PARTIDA_DATA + COLTYPE_TEXT + COLTYPE_NOT_NULL + ", " +
@@ -103,6 +113,19 @@ public class BancoDeDados extends SQLiteOpenHelper {
             MODOVIAGEM_COL_CHEGADA_HORA + COLTYPE_TEXT + COLTYPE_NOT_NULL + ", " +
             MODOVIAGEM_COL_COMENTARIO + COLTYPE_TEXT + ", " +
             MODOVIAGEM_COL_TIPO_MODO + COLTYPE_INT + ", " +
+            COL_ID_VIAGEM + COLTYPE_INT + COLTYPE_NOT_NULL + ")";
+
+    /**
+     * Table Hospedagem
+     */
+
+    private static final String SQL_CREATE_TABLE_HOSPEDAGEM = "CREATE TABLE IF NOT EXISTS Hospedagens(" +
+            HOSPEDAGEM_COL_NOME + COLTYPE_TEXT + ", " +
+            HOSPEDAGEM_COL_DATA_CHECKIN + COLTYPE_TEXT + COLTYPE_NOT_NULL + ", " +
+            HOSPEDAGEM_COL_HORA_CHECKIN + COLTYPE_TEXT + COLTYPE_NOT_NULL + ", " +
+            HOSPEDAGEM_COL_DATA_CHECKOUT + COLTYPE_TEXT + COLTYPE_NOT_NULL + ", " +
+            HOSPEDAGEM_COL_HORA_CHECKOUT + COLTYPE_TEXT + COLTYPE_NOT_NULL + ", " +
+            HOSPEDAGEM_COL_COMENTARIO + COLTYPE_TEXT + ", " +
             COL_ID_VIAGEM + COLTYPE_INT + COLTYPE_NOT_NULL + ")";
 
     private static final String SQL_POPULATE_TABLE_VIAGENS = "INSERT INTO Viagens VALUES (" +
@@ -126,12 +149,12 @@ public class BancoDeDados extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_TABLE_CARTEIRAS);
         db.execSQL(SQL_CREATE_TABLE_DESPESAS);
         db.execSQL(SQL_CREATE_TABLE_MODOVIAGEM);
-
+        db.execSQL(SQL_CREATE_TABLE_HOSPEDAGEM);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL(SQL_DELETE_TABLES);
+        //db.execSQL(SQL_DELETE_TABLES);
         onCreate(db);
     }
 }

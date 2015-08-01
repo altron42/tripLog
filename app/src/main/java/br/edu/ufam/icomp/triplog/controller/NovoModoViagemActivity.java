@@ -16,10 +16,13 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
 import br.edu.ufam.icomp.triplog.R;
+import br.edu.ufam.icomp.triplog.dao.ModoViagemDAO;
+import br.edu.ufam.icomp.triplog.model.ModoViagem;
 import br.edu.ufam.icomp.triplog.util.DateHandler;
 import br.edu.ufam.icomp.triplog.util.Opcoes;
 
@@ -37,8 +40,6 @@ public class NovoModoViagemActivity extends Activity {
     EditText et_chegada_data;
     EditText et_chegada_hora;
     EditText et_comentario;
-
-    Button bt_concluir;
 
     LinearLayout layout;
 
@@ -139,8 +140,6 @@ public class NovoModoViagemActivity extends Activity {
 
         et_comentario = (EditText) findViewById(R.id.et_comentario_modo);
 
-        bt_concluir = (Button) findViewById(R.id.bt_concluir_modo_viagem);
-
         layout = (LinearLayout) findViewById(R.id.layout_modo_viagem);
 
         setViewsVisibility(View.GONE);
@@ -192,5 +191,29 @@ public class NovoModoViagemActivity extends Activity {
 
     public void showTimePickerDialog(View view) {
         if (view == et_partida_hora) { timePicker_partida.show(); } else { timePicker_chegada.show(); }
+    }
+
+    public void btConcluirModoViagem(View view) {
+        ModoViagem modoViagem = new ModoViagem();
+        modoViagem.setNome(et_nome.getText().toString());
+        modoViagem.setPartida(et_partida.getText().toString());
+        modoViagem.setPartida_data(et_partida_data.getText().toString());
+        modoViagem.setPartida_hora(et_partida_hora.getText().toString());
+        modoViagem.setChegada(et_chegada.getText().toString());
+        modoViagem.setChegada_data(et_chegada_data.getText().toString());
+        modoViagem.setChegada_hora(et_chegada_hora.getText().toString());
+        modoViagem.setComentario(et_comentario.getText().toString());
+        modoViagem.setTipoModo(modo_selecionado);
+        modoViagem.setIdViagem(Opcoes.getIdViagem());
+
+        ModoViagemDAO modoViagemDAO = new ModoViagemDAO(this);
+
+        if (modoViagemDAO.addModoViagem(modoViagem)) {
+            Toast.makeText(this,"Concluido",Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this,"Erro",Toast.LENGTH_SHORT).show();
+        }
+
+        finish();
     }
 }

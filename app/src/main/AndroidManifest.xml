@@ -52,6 +52,10 @@
             android:name=".controller.NovaHospedagemActivity"
             android:label="@string/title_activity_nova_hospedagem" >
         </activity>
+        <activity
+            android:name=".controller.HospedagemActivity"
+            android:label="@string/title_activity_hospedagem" >
+        </activity>
     </application>
 
 </manifest>

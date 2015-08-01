@@ -51,5 +51,12 @@
     <string name="et_detalhes_modo_viagem">Detalhes etc</string>
     <string name="tv_modo_viagem">Selecione:</string>
     <string name="title_activity_nova_hospedagem">NovaHospedagemActivity</string>
+    <string name="tv_check_in">Check-In</string>
+    <string name="tv_check_out">Check-Out</string>
+    <string name="title_activity_hospedagem">HospedagemActivity</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="action_nova_hospedagem">Add hospedagem</string>
 
 </resources>

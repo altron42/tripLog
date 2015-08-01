@@ -9,6 +9,12 @@ import br.edu.ufam.icomp.triplog.R;
  */
 public class Opcoes {
 
+    public static final int opcao_despesas = 0;
+    public static final int opcao_hospedagem = 1;
+    public static final int opcao_atividades = 2;
+    public static final int opcao_carteiras = 3;
+    public static final int opcao_modo = 4;
+
     private static Context context;
     public static String[] menu_opcoes_lista;
     public static String[] categorias_gastos_lista;

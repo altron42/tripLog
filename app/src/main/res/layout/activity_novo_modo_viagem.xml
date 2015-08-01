@@ -144,7 +144,8 @@
             android:layout_height="wrap_content"
             android:text="@string/bt_concliur"
             android:id="@+id/bt_concluir_modo_viagem"
-            android:layout_gravity="right" />
+            android:layout_gravity="right"
+            android:onClick="btConcluirModoViagem" />
     </LinearLayout>
 
 </LinearLayout>
