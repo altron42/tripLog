@@ -19,6 +19,10 @@ public class DespesaDAO {
         this.bancoDeDados = (new BancoDeDados(context).getWritableDatabase());
     }
 
+    public DespesaDAO (SQLiteDatabase database) {
+        this.bancoDeDados = database;
+    }
+
     public Despesa getDespesa(int id) {
         Despesa despesa = null;
         String query = "SELECT * FROM Despesas WHERE rowid=" + id;
@@ -56,6 +60,42 @@ public class DespesaDAO {
                     despesa.getIdViagem() + ", '" +
                     despesa.getComentario() + "')";
             Log.i(null, despesa.getNome() + " adicionada");
+            this.bancoDeDados.execSQL(query);
+            return true;
+        } catch (SQLException e) {
+            Log.e("TripLogDB", e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean delDespesa(int id) {
+        try {
+            String query = "DELETE FROM Despesas WHERE rowid=" + id;
+            this.bancoDeDados.execSQL(query);
+            return true;
+        } catch (SQLException e) {
+            Log.e("TripLogDB",e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean delDespesas(int idViagem) {
+        try {
+            Log.i(null, "APAGANDO despesas " + idViagem);
+            String query = "DELETE FROM Despesas WHERE " +
+                    BancoDeDados.COL_ID_VIAGEM + "=" + idViagem;
+            this.bancoDeDados.execSQL(query);
+            return true;
+        } catch (SQLException e) {
+            Log.e("TripLogDB", e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean delDespesasPagasCom(int carteiraId) {
+        try {
+            String query = "DELETE FROM Despesas WHERE " +
+                    BancoDeDados.DESPESA_COL_PAGOCOM + "=" + carteiraId;
             this.bancoDeDados.execSQL(query);
             return true;
         } catch (SQLException e) {

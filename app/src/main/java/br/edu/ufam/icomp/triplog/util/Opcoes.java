@@ -24,6 +24,14 @@ public class Opcoes {
 
     private static int idViagem;
 
+    public static final String isEditTag = "isedit";
+    public static final String viagemTag = "viagemSelecionada";
+    public static final String despesaTag = "despesaSelecionada";
+    public static final String hospedagemTag = "hospedagemSelecionada";
+    public static final String atividadeTag = "atividadeSelecionada";
+    public static final String carteiraTag = "carteiraSelecionada";
+    public static final String modoTag = "modoSelecionada";
+
     public Opcoes(Context context) {
         this.context = context;
 

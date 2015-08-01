@@ -4,14 +4,14 @@
     <item
         android:id="@+id/cab_item_delete"
         android:icon="@drawable/ic_delete_white_24dp"
-        android:title="@string/cab_viagens_delete"
+        android:title="@string/cab_delete"
         android:orderInCategory="100"
         android:showAsAction="ifRoom|withText" />
 
     <item
         android:id="@+id/cab_item_edit"
         android:icon="@drawable/ic_mode_edit_white_24dp"
-        android:title="@string/cab_viagens_edit"
+        android:title="@string/cab_edit"
         android:orderInCategory="101"
         android:showAsAction="ifRoom|withText" />
 

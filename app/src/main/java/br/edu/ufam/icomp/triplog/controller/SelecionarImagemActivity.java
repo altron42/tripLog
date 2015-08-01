@@ -48,7 +48,7 @@ public class SelecionarImagemActivity extends Activity {
         viagemDAO = new ViagemDAO(this);
 
         Intent intent = getIntent();
-        id_viagem = (int) intent.getLongExtra("id_viagem", 0);
+        id_viagem = intent.getIntExtra("id_viagem", 0);
 
         viagem = viagemDAO.getViagem(id_viagem);
 

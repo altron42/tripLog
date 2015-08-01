@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import br.edu.ufam.icomp.triplog.R;
+import br.edu.ufam.icomp.triplog.controller.AtividadeActivity;
 import br.edu.ufam.icomp.triplog.controller.CarteirasActivity;
 import br.edu.ufam.icomp.triplog.controller.DespesasActivity;
 import br.edu.ufam.icomp.triplog.controller.HospedagemActivity;
@@ -41,6 +42,8 @@ public class MenuOpcoesFragment extends ListFragment {
                 startActivity(intent_1);
                 break;
             case Opcoes.opcao_atividades:
+                Intent intent_3 = new Intent(getActivity(), AtividadeActivity.class);
+                startActivity(intent_3);
                 break;
             case Opcoes.opcao_carteiras:
                 Intent intent_4 = new Intent(getActivity(), CarteirasActivity.class);

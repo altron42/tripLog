@@ -1,6 +1,7 @@
 package br.edu.ufam.icomp.triplog.controller;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.Menu;
@@ -18,6 +19,10 @@ public class NovaCarteiraActivity extends Activity {
     private EditText et_nome;
     private EditText et_valor;
 
+    private boolean isedit = false;
+
+    private Carteira carteira;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +30,14 @@ public class NovaCarteiraActivity extends Activity {
 
         et_nome = (EditText) findViewById(R.id.et_nome_carteira);
         et_valor = (EditText) findViewById(R.id.et_valor_carteira);
+
+        Intent intent = getIntent();
+        isedit = intent.getBooleanExtra(Opcoes.isEditTag,false);
+
+        if (isedit) {
+            carteira = intent.getParcelableExtra(Opcoes.carteiraTag);
+            fillViews();
+        }
     }
 
     @Override
@@ -49,19 +62,30 @@ public class NovaCarteiraActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void concluirNovaCarteira(View view) {
-        CarteiraDAO carteiraDAO = new CarteiraDAO(this);
+    public void fillViews() {
+        et_nome.setText(carteira.getNome());
+        et_valor.setText(Double.toString(carteira.getValorDisponivel()));
+    }
 
-        Carteira carteira = new Carteira();
+    public void concluirNovaCarteira(View view) {
+        if (!isedit) {
+            carteira = new Carteira();
+        }
 
         carteira.setIdViagem(Opcoes.getIdViagem());
         carteira.setNome(et_nome.getText().toString());
         carteira.setValorDisponivel(Double.parseDouble(et_valor.getText().toString()));
 
-        if (carteiraDAO.addCarteira(carteira)) {
-            Toast.makeText(this,"Carteira adicionada com sucesso", Toast.LENGTH_SHORT).show();
+        CarteiraDAO carteiraDAO = new CarteiraDAO(this);
+
+        if (isedit) {
+            carteiraDAO.editCarteira(carteira);
         } else {
-            Toast.makeText(this,"Não foi possível adicionar carteira", Toast.LENGTH_SHORT).show();
+            if (carteiraDAO.addCarteira(carteira)) {
+                Toast.makeText(this, "Carteira adicionada com sucesso", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Não foi possível adicionar carteira", Toast.LENGTH_SHORT).show();
+            }
         }
         finish();
     }

@@ -18,7 +18,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/et_nome_carteira"
-        android:hint="@string/et_nome_carteira_ex" />
+        android:hint="@string/et_nome_carteira_ex"
+        android:inputType="textCapSentences" />
 
     <TextView
         android:layout_width="wrap_content"

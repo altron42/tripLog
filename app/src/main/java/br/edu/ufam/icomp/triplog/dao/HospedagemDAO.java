@@ -64,6 +64,24 @@ public class HospedagemDAO {
         }
     }
 
+    public boolean editHospedagem(Hospedagem hospedagem) {
+        try {
+            String query = "UPDATE Hospedagens SET " +
+                    BancoDeDados.HOSPEDAGEM_COL_NOME + "='" + hospedagem.getNome() + "', " +
+                    BancoDeDados.HOSPEDAGEM_COL_DATA_CHECKIN + "='" + hospedagem.getData_checkin() + "', " +
+                    BancoDeDados.HOSPEDAGEM_COL_HORA_CHECKIN + "='" + hospedagem.getHora_checkin() + "', " +
+                    BancoDeDados.HOSPEDAGEM_COL_DATA_CHECKOUT + "='" + hospedagem.getData_checkout() + "', " +
+                    BancoDeDados.HOSPEDAGEM_COL_HORA_CHECKOUT + "='" + hospedagem.getHora_checkout() + "', " +
+                    BancoDeDados.HOSPEDAGEM_COL_COMENTARIO + "='" + hospedagem.getComentario() + "' " +
+                    "WHERE rowid=" + hospedagem.getId();
+            this.bancoDeDados.execSQL(query);
+            return true;
+        } catch (SQLException e) {
+            Log.e("TripLogDB", e.getMessage());
+            return false;
+        }
+    }
+
     public boolean delHospedagem(int id) {
         try {
             String query = "DELETE FROM Hospedagens WHERE rowid=" + id;

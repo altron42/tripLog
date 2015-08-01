@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/et_viagem_nome"
         android:hint="@string/et_nome_viagem"
-        android:inputType="textPersonName" />
+        android:inputType="textCapSentences|textPersonName" />
 
     <EditText
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
         android:id="@+id/et_descricao"
         android:hint="@string/et_descricao"
         android:layout_weight="0.50"
-        android:inputType="textMultiLine" />
+        android:inputType="textCapSentences|textMultiLine" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -38,7 +38,8 @@
             android:hint="@string/et_comeco_viagem"
             android:layout_weight=".5"
             android:onClick="showDatePickerDialog"
-            android:focusable="false" />
+            android:focusable="false"
+            android:inputType="date" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -49,7 +50,8 @@
             android:hint="@string/et_fim_viagem"
             android:layout_weight=".5"
             android:onClick="showDatePickerDialog"
-            android:focusable="false"/>
+            android:focusable="false"
+            android:inputType="date" />
     </LinearLayout>
 
     <TextView

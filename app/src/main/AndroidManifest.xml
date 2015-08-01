@@ -60,6 +60,14 @@
             android:name=".controller.ModoViagemActivity"
             android:label="@string/title_activity_modo_viagem" >
         </activity>
+        <activity
+            android:name=".controller.AtividadeActivity"
+            android:label="@string/title_activity_atividade" >
+        </activity>
+        <activity
+            android:name=".controller.NovaAtividadeActivity"
+            android:label="@string/title_activity_nova_atividade" >
+        </activity>
     </application>
 
 </manifest>

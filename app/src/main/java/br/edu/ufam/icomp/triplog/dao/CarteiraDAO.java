@@ -71,6 +71,8 @@ public class CarteiraDAO {
     }
 
     public boolean delCarteira(int id) {
+        //DespesaDAO despesaDAO = new DespesaDAO(bancoDeDados);
+        //despesaDAO.delDespesasPagasCom(id);
         try {
             String query = "DELETE FROM Carteiras WHERE rowid=" + id;
             this.bancoDeDados.execSQL(query);

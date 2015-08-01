@@ -35,7 +35,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
+            android:inputType="textCapSentences|textPersonName"
             android:ems="10"
             android:id="@+id/et_detalhes"
             android:hint="@string/et_detalhes_modo_viagem" />
@@ -54,7 +54,7 @@
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
+                android:inputType="textCapWords|textPersonName"
                 android:ems="10"
                 android:id="@+id/et_partida"
                 android:layout_weight=".33"
@@ -99,7 +99,7 @@
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
+                android:inputType="textCapWords|textPersonName"
                 android:ems="10"
                 android:id="@+id/et_chegada"
                 android:layout_weight=".33"
@@ -133,7 +133,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:inputType="textCapWords|textMultiLine"
+            android:inputType="textCapSentences|textMultiLine"
             android:ems="10"
             android:id="@+id/et_comentario_modo"
             android:hint="@string/et_descricao"

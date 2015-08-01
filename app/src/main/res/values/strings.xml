@@ -26,9 +26,9 @@
     <string name="tv_data">Data</string>
 
     <string name="bt_concliur">Concluir</string>
-    <string name="cab_viagens_delete">Apagar</string>
-    <string name="cab_viagens_edit">Editar</string>
-    <string name="title_activity_nova_carteira">NovaCarteiraActivity</string>
+    <string name="cab_delete">Apagar</string>
+    <string name="cab_edit">Editar</string>
+    <string name="title_activity_nova_carteira">Nova Carteira</string>
     <string name="et_nome_carteira">Nome da Carteira</string>
     <string name="et_valor_carteira">Valor disponível</string>
     <string name="et_nome_carteira_ex">Ex: dinheiro para lazer, cartão de crédito, etc...</string>
@@ -41,7 +41,7 @@
     <string name="action_nova_carteira">Nova carteira</string>
     <string name="title_activity_selecionar_imagem">Selecionar Imagem</string>
     <string name="bt_selecionar_imagem">Selecionar Imagem</string>
-    <string name="title_activity_novo_modo_viagem">NovoModoViagemActivity</string>
+    <string name="title_activity_novo_modo_viagem">Novo Modo de Viagem</string>
     <string name="tv_partida">Partida</string>
     <string name="tv_chegada">Chagada</string>
     <string name="et_de">De:</string>
@@ -49,16 +49,18 @@
     <string name="et_data">Data</string>
     <string name="et_hora">Hora</string>
     <string name="et_detalhes_modo_viagem">Detalhes etc</string>
-    <string name="tv_modo_viagem">Selecione:</string>
-    <string name="title_activity_nova_hospedagem">NovaHospedagemActivity</string>
+    <string name="tv_modo_viagem">Selecione como vai viajar:</string>
+    <string name="title_activity_nova_hospedagem">Nova Hospedagem</string>
     <string name="tv_check_in">Check-In</string>
     <string name="tv_check_out">Check-Out</string>
-    <string name="title_activity_hospedagem">HospedagemActivity</string>
+    <string name="title_activity_hospedagem">Hospedagem</string>
 
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="action_nova_hospedagem">Add hospedagem</string>
-    <string name="title_activity_modo_viagem">ModoViagemActivity</string>
+    <string name="title_activity_modo_viagem">Modos de Viagem</string>
     <string name="action_novo_modo">Add modo de viagem</string>
+    <string name="title_activity_atividade">Atividades</string>
+    <string name="action_nova_atividade">Nova atividade</string>
+    <string name="title_activity_nova_atividade">Nova Atividade</string>
+    <string name="et_nome_atividade">Noma da atividade</string>
 
 </resources>

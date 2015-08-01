@@ -73,6 +73,27 @@ public class ModoViagemDAO {
         }
     }
 
+    public boolean editModoViagem(ModoViagem modoViagem) {
+        try {
+            String query = "UPDATE ModoViagem SET " +
+                    BancoDeDados.MODOVIAGEM_COL_NOME + "='" + modoViagem.getNome() + "', " +
+                    BancoDeDados.MODOVIAGEM_COL_PARTIDA + "='" + modoViagem.getPartida() + "', " +
+                    BancoDeDados.MODOVIAGEM_COL_PARTIDA_DATA + "='" + modoViagem.getPartida_data() + "', " +
+                    BancoDeDados.MODOVIAGEM_COL_PARTIDA_HORA + "='" + modoViagem.getPartida_hora() + "', " +
+                    BancoDeDados.MODOVIAGEM_COL_CHEGADA + "='" + modoViagem.getChegada() + "', " +
+                    BancoDeDados.MODOVIAGEM_COL_CHEGADA_DATA + "='" + modoViagem.getChegada_data() + "', " +
+                    BancoDeDados.MODOVIAGEM_COL_CHEGADA_HORA + "='" + modoViagem.getChegada_hora() + "', " +
+                    BancoDeDados.MODOVIAGEM_COL_TIPO_MODO + "=" + modoViagem.getTipoModo() + ", " +
+                    BancoDeDados.MODOVIAGEM_COL_COMENTARIO + "='" + modoViagem.getComentario() + " " +
+                    "WHERE rowod=" + modoViagem.getId();
+            this.bancoDeDados.execSQL(query);
+            return true;
+        } catch (SQLException e) {
+            Log.e("TripLogDB", e.getMessage());
+            return false;
+        }
+    }
+
     public boolean delModoViagem(int id) {
         try {
             String query = "DELETE FROM ModoViagem WHERE rowid=" + id;

@@ -11,7 +11,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
+        android:inputType="textCapSentences|textPersonName"
         android:ems="10"
         android:id="@+id/et_nome_item_gasto"
         android:hint="@string/tv_item_gasto" />
@@ -91,7 +91,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/et_comentario_gasto"
         android:hint="@string/et_descricao"
-        android:layout_weight="0.4" />
+        android:layout_weight="0.4"
+        android:inputType="textCapSentences|textMultiLine" />
 
     <Button
         android:layout_width="match_parent"

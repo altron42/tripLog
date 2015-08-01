@@ -10,7 +10,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
+        android:inputType="textCapWords|textPersonName"
         android:ems="10"
         android:id="@+id/et_nome"
         android:hint="Nome" />
@@ -110,7 +110,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:inputType="textCapWords|textMultiLine"
+        android:inputType="textCapSentences|textMultiLine"
         android:ems="10"
         android:id="@+id/et_comentario_hospedagem"
         android:hint="@string/et_descricao"

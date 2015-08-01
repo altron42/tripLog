@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.SimpleCursorAdapter;
@@ -35,6 +36,7 @@ public class NovaDespesaActivity extends Activity {
 
     private CarteiraDAO carteiraDAO;
 
+    private Button button;
     private EditText et_nome;
     private EditText et_valor;
     private EditText et_data;
@@ -49,6 +51,9 @@ public class NovaDespesaActivity extends Activity {
     private int categoria_selecionada;
     private int carteira_selecionada;
 
+    private boolean isedit = false;
+
+    private Despesa despesa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +61,14 @@ public class NovaDespesaActivity extends Activity {
         setContentView(R.layout.activity_nova_despesa);
 
         initViews();
+
+        Intent intent = getIntent();
+        isedit = intent.getBooleanExtra(Opcoes.isEditTag,false);
+
+        if (isedit) {
+            despesa = intent.getParcelableExtra(Opcoes.despesaTag);
+            fillViews();
+        }
 
         nova_data = Calendar.getInstance();
 
@@ -109,6 +122,15 @@ public class NovaDespesaActivity extends Activity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(isedit) {
+            spinner_categoria.setSelection(despesa.getCategoria());
+            //spinner_carteira.setSelection(despesa.getPagoCom());
+        }
+    }
+
     private void initViews() {
         et_nome = (EditText) findViewById(R.id.et_nome_item_gasto);
         et_valor = (EditText) findViewById(R.id.et_valor_item_gasto);
@@ -116,6 +138,15 @@ public class NovaDespesaActivity extends Activity {
         spinner_categoria = (Spinner) findViewById(R.id.spinner_categoria_gasto);
         spinner_carteira = (Spinner) findViewById(R.id.spinner_carteira_gasto);
         et_comentario = (EditText) findViewById(R.id.et_comentario_gasto);
+        button = (Button) findViewById(R.id.bt_concluir_nova_despesa);
+    }
+
+    public void fillViews() {
+        et_nome.setText(despesa.getNome());
+        et_valor.setText(Double.toString(despesa.getValor()));
+        et_data.setText(despesa.getData());
+        et_comentario.setText(despesa.getComentario());
+        button.setVisibility(View.GONE);
     }
 
     private DatePickerDialog.OnDateSetListener date_listener = new DatePickerDialog.OnDateSetListener() {
@@ -156,7 +187,7 @@ public class NovaDespesaActivity extends Activity {
         DespesaDAO despesaDAO = new DespesaDAO(this);
         CarteiraDAO carteiraDAO = new CarteiraDAO(this);
 
-        Despesa despesa = new Despesa();
+        despesa = new Despesa();
         Carteira carteira = carteiraDAO.getCarteira(carteira_selecionada);
 
         despesa.setNome(et_nome.getText().toString());

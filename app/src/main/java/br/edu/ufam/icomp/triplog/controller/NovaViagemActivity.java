@@ -2,6 +2,7 @@ package br.edu.ufam.icomp.triplog.controller;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,24 +20,40 @@ import br.edu.ufam.icomp.triplog.R;
 import br.edu.ufam.icomp.triplog.dao.ViagemDAO;
 import br.edu.ufam.icomp.triplog.model.Viagem;
 import br.edu.ufam.icomp.triplog.util.DateHandler;
+import br.edu.ufam.icomp.triplog.util.Opcoes;
 
 public class NovaViagemActivity extends Activity {
 
+    private EditText et_nome;
     private EditText et_comeco;
     private EditText et_fim;
+    private EditText et_descricao;
+
+    private RadioGroup rg;
 
     private Calendar nova_data;
 
     private DatePickerDialog datePicker_comeco;
     private DatePickerDialog datePicker_fim;
 
+    private boolean isedit = false;
+
+    private Viagem viagem;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nova_viagem);
 
-        et_comeco = (EditText) findViewById(R.id.et_data_comeco);
-        et_fim = (EditText) findViewById(R.id.et_data_fim);
+        Intent intent = getIntent();
+        isedit = intent.getBooleanExtra(Opcoes.isEditTag,false);
+
+        initViews();
+
+        if (isedit) {
+            viagem = intent.getParcelableExtra(Opcoes.viagemTag);
+            fillViews();
+        }
 
         nova_data = Calendar.getInstance();
 
@@ -73,6 +90,22 @@ public class NovaViagemActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void initViews() {
+        et_nome = (EditText) findViewById(R.id.et_viagem_nome);
+        et_comeco = (EditText) findViewById(R.id.et_data_comeco);
+        et_fim = (EditText) findViewById(R.id.et_data_fim);
+        et_descricao = (EditText) findViewById(R.id.et_descricao);
+        rg = (RadioGroup) findViewById(R.id.rg_tipo_viagem);
+    }
+
+    public void fillViews() {
+        et_nome.setText(viagem.getNome());
+        et_comeco.setText(viagem.getComeco());
+        et_fim.setText(viagem.getFim());
+        et_descricao.setText(viagem.getDetalhes());
+        if(viagem.getTipo() == 1) rg.check(R.id.rb_pessoal); else rg.check(R.id.rb_negocios);
+    }
+
     private DatePickerDialog.OnDateSetListener listener_comeco = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -97,12 +130,9 @@ public class NovaViagemActivity extends Activity {
     }
 
     public void concluirClicado(View view) {
-        EditText et_nome = (EditText) findViewById(R.id.et_viagem_nome);
-        EditText et_descricao = (EditText) findViewById(R.id.et_descricao);
-
-        RadioGroup rg = (RadioGroup) findViewById(R.id.rg_tipo_viagem);
-
-        Viagem viagem = new Viagem();
+        if (!isedit) {
+            viagem = new Viagem();
+        }
 
         switch (rg.getCheckedRadioButtonId()) {
             case R.id.rb_pessoal:
@@ -137,12 +167,15 @@ public class NovaViagemActivity extends Activity {
         }
 
         ViagemDAO viagemDAO = new ViagemDAO(this);
-
-        if (viagemDAO.addViagem(viagem)) {
-            Toast.makeText(getApplicationContext(), "Nova viagem adicionada com sucesso", Toast.LENGTH_SHORT).show();
-            finish();
+        if (isedit) {
+            viagemDAO.editViagem(viagem);
         } else {
-            Toast.makeText(getApplicationContext(),"Erro ao adicionar viagem", Toast.LENGTH_SHORT).show();
+            if (viagemDAO.addViagem(viagem)) {
+                Toast.makeText(getApplicationContext(), "Nova viagem adicionada com sucesso", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getApplicationContext(), "Erro ao adicionar viagem", Toast.LENGTH_SHORT).show();
+            }
         }
+        finish();
     }
 }

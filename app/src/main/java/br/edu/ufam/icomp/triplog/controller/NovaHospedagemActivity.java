@@ -3,6 +3,7 @@ package br.edu.ufam.icomp.triplog.controller;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -40,12 +41,24 @@ public class NovaHospedagemActivity extends Activity {
 
     Calendar calendar;
 
+    private boolean isedit = false;
+
+    private Hospedagem hospedagem;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nova_hospedagem);
 
         initViews();
+
+        Intent intent = getIntent();
+        isedit = intent.getBooleanExtra(Opcoes.isEditTag,false);
+
+        if (isedit) {
+            hospedagem = intent.getParcelableExtra(Opcoes.hospedagemTag);
+            fillViews();
+        }
 
         calendar = Calendar.getInstance();
 
@@ -104,6 +117,15 @@ public class NovaHospedagemActivity extends Activity {
         et_comentario = (EditText) findViewById(R.id.et_comentario_hospedagem);
     }
 
+    public void fillViews() {
+        et_nome.setText(hospedagem.getNome());
+        et_checkin.setText(hospedagem.getData_checkin());
+        et_checkin_hora.setText(hospedagem.getHora_checkin());
+        et_checkout.setText(hospedagem.getData_checkout());
+        et_checkout_hora.setText(hospedagem.getHora_checkout());
+        et_comentario.setText(hospedagem.getComentario());
+    }
+
     private DatePickerDialog.OnDateSetListener dateSetListener_checkin = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -150,7 +172,10 @@ public class NovaHospedagemActivity extends Activity {
     }
 
     public void btConcluirHospedagem(View view) {
-        Hospedagem hospedagem = new Hospedagem();
+        if (!isedit) {
+            hospedagem = new Hospedagem();
+        }
+
         hospedagem.setNome(et_nome.getText().toString());
         hospedagem.setData_checkin(et_checkin.getText().toString());
         hospedagem.setHora_checkin((et_checkin_hora.getText().toString()));
@@ -160,11 +185,14 @@ public class NovaHospedagemActivity extends Activity {
         hospedagem.setIdViagem(Opcoes.getIdViagem());
 
         HospedagemDAO hospedagemDAO = new HospedagemDAO(this);
-
-        if (hospedagemDAO.addHospedagem(hospedagem)) {
-            Toast.makeText(this,"Concluído",Toast.LENGTH_SHORT).show();
+        if (isedit){
+            hospedagemDAO.editHospedagem(hospedagem);
         } else {
-            Toast.makeText(this,"Erro",Toast.LENGTH_SHORT).show();
+            if (hospedagemDAO.addHospedagem(hospedagem)) {
+                Toast.makeText(this, "Concluído", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Erro", Toast.LENGTH_SHORT).show();
+            }
         }
         finish();
     }

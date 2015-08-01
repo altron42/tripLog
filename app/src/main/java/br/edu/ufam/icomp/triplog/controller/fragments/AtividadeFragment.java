@@ -4,35 +4,27 @@ package br.edu.ufam.icomp.triplog.controller.fragments;
 import android.app.ListFragment;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.text.Html;
-import android.util.Log;
 import android.view.ActionMode;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.text.ParseException;
 
 import br.edu.ufam.icomp.triplog.R;
-import br.edu.ufam.icomp.triplog.controller.NovaViagemActivity;
-import br.edu.ufam.icomp.triplog.controller.PrincipalViagemActivity;
-import br.edu.ufam.icomp.triplog.controller.SelecionarImagemActivity;
-import br.edu.ufam.icomp.triplog.dao.ViagemDAO;
-import br.edu.ufam.icomp.triplog.model.Viagem;
+import br.edu.ufam.icomp.triplog.controller.NovaAtividadeActivity;
+import br.edu.ufam.icomp.triplog.dao.AtividadeDAO;
+import br.edu.ufam.icomp.triplog.model.Atividade;
 import br.edu.ufam.icomp.triplog.util.BancoDeDados;
 import br.edu.ufam.icomp.triplog.util.DateHandler;
 import br.edu.ufam.icomp.triplog.util.Opcoes;
@@ -40,81 +32,58 @@ import br.edu.ufam.icomp.triplog.util.Opcoes;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ListaViagensFragment extends ListFragment {
-    private ViagemDAO viagemDAO;
-    private Cursor cursor_viagens;
-    private SimpleCursorAdapter adapter_viagens;
+public class AtividadeFragment extends ListFragment {
+
+    AtividadeDAO atividadeDAO;
+    Cursor cursor;
+    SimpleCursorAdapter cursorAdapter;
 
     private ActionMode mActionMode;
 
     private long id_selecionado;
     private int position_selecionado;
 
-    private Viagem viagem_selecionada;
+    private Atividade atividade;
 
     @Override
     public void onStart() {
         super.onStart();
-        setEmptyText(Html.fromHtml("<br><br><p>Sua lista de viagens está vazia</p>"));
+        setEmptyText("Esta lista está vazia");
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        this.viagemDAO = new ViagemDAO(getActivity());
+        atividadeDAO = new AtividadeDAO(getActivity());
 
-        //cursor_viagens = viagemDAO.getViagens();
+        String[] colunasDe = {BancoDeDados.ATIVIDADE_COL_NOME, BancoDeDados.ATIVIDADE_COL_DATA, BancoDeDados.ATIVIDADE_COL_HORA};
+        int[] colunasPara = {R.id.textView5, R.id.textView6, R.id.textView7};
 
-        String[] colunasDe = {BancoDeDados.VIAGEM_COL_NOME, BancoDeDados.VIAGEM_COL_COMECO,
-                BancoDeDados.VIAGEM_COL_FIM, BancoDeDados.VIAGEM_COL_ICONE};
-        int[] colunasPara = {R.id.tv_titulo_viagem, R.id.tv_comeco_viagem, R.id.tv_fim_viagem, R.id.iv_icone_viagem };
-
-        adapter_viagens = new SimpleCursorAdapter(getActivity(),
-                R.layout.lista_viagens,
-                cursor_viagens,
+        cursorAdapter = new SimpleCursorAdapter(getActivity(),
+                R.layout.lista_hospedagem,
+                cursor,
                 colunasDe,
                 colunasPara,
                 0);
+        setListAdapter(cursorAdapter);
 
-        setListAdapter(adapter_viagens);
-
-        adapter_viagens.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
+        cursorAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
             @Override
             public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
-                if (columnIndex == cursor.getColumnIndex(BancoDeDados.VIAGEM_COL_ICONE)) {
-                    String nome_imagem = cursor.getString(columnIndex);
-                    ImageView iv_icone = (ImageView) view;
-
-                    Log.i(null, cursor.getInt(0) + " Nome da imagem no DB: " + nome_imagem);
-
-                    if (nome_imagem == null || nome_imagem.matches("null")) {
-                        Log.d("ImageView", "Nome da imagem não especificado");
-                        iv_icone.setImageResource(R.mipmap.ic_launcher);
-                    } else {
-                        File file = new File(getActivity().getFilesDir(),nome_imagem);
-                        try {
-                            iv_icone.setImageBitmap(BitmapFactory.decodeStream(new FileInputStream(file)));
-                        } catch (FileNotFoundException e) {
-                            Log.e(null,"Imagem não encontrada");
-                            e.printStackTrace();
-                        }
-                    }
-                    return true;
-                }
-                if (columnIndex == cursor.getColumnIndex(BancoDeDados.VIAGEM_COL_COMECO)) {
+                if (columnIndex == cursor.getColumnIndex(BancoDeDados.ATIVIDADE_COL_DATA)) {
                     try {
-                        String data = DateHandler.dateFormatFull.format(DateHandler.sdf.parse(cursor.getString(columnIndex)));
-                        ((TextView) view).setText(getString(R.string.et_comeco_viagem) + ": " + data);
+                        String s = DateHandler.dateFormatDefault.format(DateHandler.sdf.parse(cursor.getString(columnIndex)));
+                        ((TextView) view).setText(getResources().getString(R.string.et_data) + ": " + s);
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
                     return true;
                 }
-                if (columnIndex == cursor.getColumnIndex(BancoDeDados.VIAGEM_COL_FIM)) {
+                if (columnIndex == cursor.getColumnIndex(BancoDeDados.ATIVIDADE_COL_HORA)) {
                     try {
-                        String data = DateHandler.dateFormatFull.format(DateHandler.sdf.parse(cursor.getString(columnIndex)));
-                        ((TextView) view).setText(getString(R.string.et_fim_viagem) + ": " + data);
+                        String s = DateHandler.timeFormat.format(DateHandler.sdf_time.parse(cursor.getString(columnIndex)));
+                        ((TextView)view).setText(getResources().getString(R.string.et_hora)+ ": " + s);
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -140,36 +109,30 @@ public class ListaViagensFragment extends ListFragment {
 
         getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         getListView().setOnItemLongClickListener(longClickListener);
-
     }
 
     @Override
     public void onResume() {
         super.onResume();
         atualizarAdapter();
-        getListView().setItemChecked(position_selecionado,false);
+        getListView().setItemChecked(position_selecionado, false);
         if (mActionMode != null) mActionMode.finish();
     }
 
     @Override
-    public void onListItemClick(ListView l, View v, int pos, long id) {
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
         id_selecionado = id;
-        position_selecionado = pos;
+        position_selecionado = position;
         if (mActionMode != null) {
             return;
         }
-        Intent intent = new Intent(getActivity(), PrincipalViagemActivity.class);
-        intent.putExtra("id_viagem", (int) id);
-        startActivity(intent);
     }
 
     private void atualizarAdapter() {
-        Cursor novo_cursor = viagemDAO.getViagens();
-        cursor_viagens = adapter_viagens.swapCursor(novo_cursor);
-        adapter_viagens.notifyDataSetChanged();
-        if (adapter_viagens.isEmpty()) {
-            Log.i(null, "LISTA VAZIA");
-        }
+        Cursor novo = atividadeDAO.getAtividades(Opcoes.getIdViagem());
+        cursor = cursorAdapter.swapCursor(novo);
+        cursorAdapter.notifyDataSetChanged();
     }
 
     private ActionMode.Callback mAntionModeCallback = new ActionMode.Callback() {
@@ -189,7 +152,7 @@ public class ListaViagensFragment extends ListFragment {
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.cab_item_delete:
-                    if (viagemDAO.delViagem((int)id_selecionado)) {
+                    if (atividadeDAO.delAtividade((int)id_selecionado)) {
                         Toast.makeText(getActivity(), "Apagado " + id_selecionado, Toast.LENGTH_SHORT).show();
                         atualizarAdapter();
                     } else {
@@ -198,11 +161,11 @@ public class ListaViagensFragment extends ListFragment {
                     mode.finish();
                     return true;
                 case R.id.cab_item_edit:
-                    Intent intent = new Intent(getActivity(), NovaViagemActivity.class);
-                    viagem_selecionada = viagemDAO.getViagem((int)id_selecionado);
-                    viagem_selecionada.setId((int)id_selecionado);
+                    Intent intent = new Intent(getActivity(), NovaAtividadeActivity.class);
+                    atividade = atividadeDAO.getAtividade((int) id_selecionado);
+                    atividade.setId((int)id_selecionado);
                     intent.putExtra(Opcoes.isEditTag, true);
-                    intent.putExtra(Opcoes.viagemTag, viagem_selecionada);
+                    intent.putExtra(Opcoes.atividadeTag, atividade);
                     startActivity(intent);
                     return true;
                 default:

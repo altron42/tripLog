@@ -3,6 +3,7 @@ package br.edu.ufam.icomp.triplog.controller;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -50,12 +51,23 @@ public class NovoModoViagemActivity extends Activity {
     private DatePickerDialog datePicker_chegada;
     private TimePickerDialog timePicker_chegada;
 
+    private boolean isedit = false;
+
+    private ModoViagem modoViagem;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_novo_modo_viagem);
 
         initViews();
+        Intent intent = getIntent();
+        isedit = intent.getBooleanExtra(Opcoes.isEditTag,false);
+
+        if (isedit) {
+            modoViagem = intent.getParcelableExtra(Opcoes.modoTag);
+            fillViews();
+        }
 
         ArrayAdapter adapter_spinner_modo = ArrayAdapter.createFromResource(this, R.array.modo_viagem_array, android.R.layout.simple_spinner_item);
         adapter_spinner_modo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -125,6 +137,14 @@ public class NovoModoViagemActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (isedit) {
+            spinner_modo.setSelection(modoViagem.getTipoModo());
+        }
+    }
+
     public void initViews() {
         spinner_modo = (Spinner) findViewById(R.id.spinner_modo_viagem);
 
@@ -143,6 +163,18 @@ public class NovoModoViagemActivity extends Activity {
         layout = (LinearLayout) findViewById(R.id.layout_modo_viagem);
 
         setViewsVisibility(View.GONE);
+    }
+
+    public void fillViews() {
+        et_nome.setText(modoViagem.getNome());
+        et_partida.setText(modoViagem.getPartida());
+        et_partida_data.setText(modoViagem.getPartida_data());
+        et_partida_hora.setText(modoViagem.getPartida_hora());
+        et_chegada.setText(modoViagem.getChegada());
+        et_chegada_data.setText(modoViagem.getChegada_data());
+        et_chegada_hora.setText(modoViagem.getChegada_hora());
+        et_comentario.setText(modoViagem.getComentario());
+        setViewsVisibility(View.VISIBLE);
     }
 
     public void setViewsVisibility(int viewsVisibility) {
@@ -194,7 +226,10 @@ public class NovoModoViagemActivity extends Activity {
     }
 
     public void btConcluirModoViagem(View view) {
-        ModoViagem modoViagem = new ModoViagem();
+        if (!isedit) {
+            modoViagem = new ModoViagem();
+        }
+
         modoViagem.setNome(et_nome.getText().toString());
         modoViagem.setPartida(et_partida.getText().toString());
         modoViagem.setPartida_data(et_partida_data.getText().toString());
@@ -208,12 +243,15 @@ public class NovoModoViagemActivity extends Activity {
 
         ModoViagemDAO modoViagemDAO = new ModoViagemDAO(this);
 
-        if (modoViagemDAO.addModoViagem(modoViagem)) {
-            Toast.makeText(this,"Concluido",Toast.LENGTH_SHORT).show();
+        if (isedit) {
+            modoViagemDAO.editModoViagem(modoViagem);
         } else {
-            Toast.makeText(this,"Erro",Toast.LENGTH_SHORT).show();
+            if (modoViagemDAO.addModoViagem(modoViagem)) {
+                Toast.makeText(this, "Concluido", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Erro", Toast.LENGTH_SHORT).show();
+            }
         }
-
         finish();
     }
 }

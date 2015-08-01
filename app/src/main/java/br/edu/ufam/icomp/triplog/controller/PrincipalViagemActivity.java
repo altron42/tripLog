@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,6 +21,7 @@ import java.text.SimpleDateFormat;
 import br.edu.ufam.icomp.triplog.R;
 import br.edu.ufam.icomp.triplog.controller.fragments.MenuOpcoesFragment;
 import br.edu.ufam.icomp.triplog.dao.CarteiraDAO;
+import br.edu.ufam.icomp.triplog.dao.ViagemDAO;
 import br.edu.ufam.icomp.triplog.model.Viagem;
 import br.edu.ufam.icomp.triplog.util.BancoDeDados;
 import br.edu.ufam.icomp.triplog.util.Opcoes;
@@ -35,6 +37,7 @@ public class PrincipalViagemActivity extends Activity {
 
     private double orcamento_disponivel;
 
+    private ViagemDAO viagemDAO;
     private Viagem viagem_selecionada;
 
     @Override
@@ -44,11 +47,10 @@ public class PrincipalViagemActivity extends Activity {
 
         new Opcoes(this);
         carteiraDAO = new CarteiraDAO(this);
+        viagemDAO = new ViagemDAO(this);
 
         Intent intent = getIntent();
-        viagem_selecionada = (Viagem) intent.getParcelableExtra("viagem_selecionada");
-
-        Opcoes.setIdViagem(viagem_selecionada.getId());
+        Opcoes.setIdViagem(intent.getIntExtra("id_viagem", 0));
 
         findViews();
 
@@ -56,13 +58,13 @@ public class PrincipalViagemActivity extends Activity {
             MenuOpcoesFragment lista = new MenuOpcoesFragment();
             getFragmentManager().beginTransaction().add(R.id.fragment_lista_opcoes, lista).commit();
         }
-
-        setTitle(viagem_selecionada.getNome());
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        viagem_selecionada = viagemDAO.getViagem(Opcoes.getIdViagem());
+        setTitle(viagem_selecionada.getNome());
         orcamento_disponivel = carteiraDAO.getOrcamentoDisponivel(viagem_selecionada.getId());
         setarValores();
     }
@@ -118,5 +120,11 @@ public class PrincipalViagemActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void selecionarImage(View view) {
+        Intent intent = new Intent(this, SelecionarImagemActivity.class);
+        intent.putExtra("id_viagem", viagem_selecionada.getId());
+        startActivity(intent);
     }
 }

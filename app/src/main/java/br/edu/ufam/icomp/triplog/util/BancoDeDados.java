@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by micael on 26/07/15.
  */
 public class BancoDeDados extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 5;
+    public static final int DATABASE_VERSION = 6;
     public static final String DATABASE_NAME = "TripLogApp.db";
 
     private static final String COLTYPE_TEXT = " TEXT";
@@ -70,6 +70,14 @@ public class BancoDeDados extends SQLiteOpenHelper {
     public static final String HOSPEDAGEM_COL_COMENTARIO = "comentario";
 
     /**
+     * Column names for table Atividades
+     */
+    public static final String ATIVIDADE_COL_NOME = "nome";
+    public static final String ATIVIDADE_COL_DATA = "data";
+    public static final String ATIVIDADE_COL_HORA = "hora";
+    public static final String ATIVIDADE_COL_DETALHES = "detalhes";
+
+    /**
      * Table Viagens
      */
     private static final String SQL_CREATE_TABLE_VIAGENS = "CREATE TABLE IF NOT EXISTS Viagens(" +
@@ -128,6 +136,17 @@ public class BancoDeDados extends SQLiteOpenHelper {
             HOSPEDAGEM_COL_COMENTARIO + COLTYPE_TEXT + ", " +
             COL_ID_VIAGEM + COLTYPE_INT + COLTYPE_NOT_NULL + ")";
 
+    /**
+     * Table Atividades
+     */
+    private static final String SQL_CREATE_TABLE_ATIVIDADES = "CREATE TABLE IF NOT EXISTS Atividades(" +
+            ATIVIDADE_COL_NOME + COLTYPE_TEXT + ", " +
+            ATIVIDADE_COL_DATA + COLTYPE_TEXT + COLTYPE_NOT_NULL + ", " +
+            ATIVIDADE_COL_HORA + COLTYPE_TEXT + COLTYPE_NOT_NULL + ", " +
+            ATIVIDADE_COL_DETALHES + COLTYPE_TEXT + COLTYPE_NOT_NULL + ", " +
+            COL_ID_VIAGEM + COLTYPE_INT + COLTYPE_NOT_NULL + ")";
+
+
     private static final String SQL_POPULATE_TABLE_VIAGENS = "INSERT INTO Viagens VALUES (" +
             "'Férias de Verão', " +
             "'26/07/2015', " +
@@ -150,6 +169,7 @@ public class BancoDeDados extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_TABLE_DESPESAS);
         db.execSQL(SQL_CREATE_TABLE_MODOVIAGEM);
         db.execSQL(SQL_CREATE_TABLE_HOSPEDAGEM);
+        db.execSQL(SQL_CREATE_TABLE_ATIVIDADES);
     }
 
     @Override
