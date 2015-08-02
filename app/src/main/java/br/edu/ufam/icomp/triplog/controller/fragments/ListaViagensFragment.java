@@ -90,7 +90,7 @@ public class ListaViagensFragment extends ListFragment {
 
                     if (nome_imagem == null || nome_imagem.matches("null")) {
                         Log.d("ImageView", "Nome da imagem não especificado");
-                        iv_icone.setImageResource(R.mipmap.ic_launcher);
+                        iv_icone.setImageResource(R.drawable.banner);
                     } else {
                         File file = new File(getActivity().getFilesDir(),nome_imagem);
                         try {

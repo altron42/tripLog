@@ -88,7 +88,7 @@ public class PrincipalViagemActivity extends Activity {
         String nome_imagem = viagem_selecionada.getIcone();
 
         if (nome_imagem == null || nome_imagem.matches("null")) {
-            iv_banner_viagem.setImageResource(R.mipmap.ic_launcher);
+            iv_banner_viagem.setImageResource(R.drawable.banner);
         } else {
             File file = new File(this.getFilesDir(),nome_imagem);
             try {

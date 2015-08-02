@@ -145,7 +145,7 @@ public class TabelaFragment extends ListFragment {
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             MenuInflater inflater = mode.getMenuInflater();
-            inflater.inflate(R.menu.menu_cab_lista_viagens,menu);
+            inflater.inflate(R.menu.menu_cab_despesas,menu);
             return true;
         }
 
