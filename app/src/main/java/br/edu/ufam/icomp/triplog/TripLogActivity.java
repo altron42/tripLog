@@ -5,6 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import java.io.File;
 
 import br.edu.ufam.icomp.triplog.controller.NovaViagemActivity;
 import br.edu.ufam.icomp.triplog.controller.fragments.ListaViagensFragment;
@@ -40,8 +44,9 @@ public class TripLogActivity extends Activity {
             case R.id.action_nova_viagem:
                 Intent intent = new Intent(this, NovaViagemActivity.class);
                 startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 }

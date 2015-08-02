@@ -4,7 +4,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/suitcase"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
@@ -23,6 +23,50 @@
         <activity
             android:name=".controller.PrincipalViagemActivity"
             android:label="@string/title_activity_principal_viagem" >
+        </activity>
+        <activity
+            android:name=".controller.NovaCarteiraActivity"
+            android:label="@string/title_activity_nova_carteira" >
+        </activity>
+        <activity
+            android:name=".controller.DespesasActivity"
+            android:label="@string/title_activity_despesas" >
+        </activity>
+        <activity
+            android:name=".controller.NovaDespesaActivity"
+            android:label="@string/title_activity_nova_despesa" >
+        </activity>
+        <activity
+            android:name=".controller.CarteirasActivity"
+            android:label="@string/title_activity_carteiras" >
+        </activity>
+        <activity
+            android:name=".controller.SelecionarImagemActivity"
+            android:label="@string/title_activity_selecionar_imagem" >
+        </activity>
+        <activity
+            android:name=".controller.NovoModoViagemActivity"
+            android:label="@string/title_activity_novo_modo_viagem" >
+        </activity>
+        <activity
+            android:name=".controller.NovaHospedagemActivity"
+            android:label="@string/title_activity_nova_hospedagem" >
+        </activity>
+        <activity
+            android:name=".controller.HospedagemActivity"
+            android:label="@string/title_activity_hospedagem" >
+        </activity>
+        <activity
+            android:name=".controller.ModoViagemActivity"
+            android:label="@string/title_activity_modo_viagem" >
+        </activity>
+        <activity
+            android:name=".controller.AtividadeActivity"
+            android:label="@string/title_activity_atividade" >
+        </activity>
+        <activity
+            android:name=".controller.NovaAtividadeActivity"
+            android:label="@string/title_activity_nova_atividade" >
         </activity>
     </application>
 

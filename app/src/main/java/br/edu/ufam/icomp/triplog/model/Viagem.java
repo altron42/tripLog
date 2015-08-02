@@ -72,10 +72,6 @@ public class Viagem implements Parcelable {
         return tipo;
     }
 
-    public String getTipoNome() {
-        return tipo == 1 ? "pessoal" : "negócios";
-    }
-
     public void setTipo(int tipo) {
         this.tipo = tipo;
     }
@@ -88,9 +84,23 @@ public class Viagem implements Parcelable {
         this.icone = icone;
     }
 
+    @Override
+    public String toString() {
+        return "Viagem{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", comeco='" + comeco + '\'' +
+                ", fim='" + fim + '\'' +
+                ", detalhes='" + detalhes + '\'' +
+                ", tipo=" + tipo +
+                ", icone='" + icone + '\'' +
+                '}';
+    }
+
     // Parcelable implementation starts here
 
     protected Viagem(Parcel in) {
+        id = in.readInt();
         nome = in.readString();
         comeco = in.readString();
         fim = in.readString();
@@ -106,6 +116,7 @@ public class Viagem implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
         dest.writeString(nome);
         dest.writeString(comeco);
         dest.writeString(fim);

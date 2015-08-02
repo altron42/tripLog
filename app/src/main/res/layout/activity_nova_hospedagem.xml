@@ -1,0 +1,127 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="br.edu.ufam.icomp.triplog.controller.NovaHospedagemActivity"
+    android:orientation="vertical">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textCapWords|textPersonName"
+        android:ems="10"
+        android:id="@+id/et_nome"
+        android:hint="Nome" />
+
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/layout_modo_viagem">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_check_in"
+            android:id="@+id/tv_check_in"
+            android:layout_alignTop="@+id/linearLayout"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@+id/linearLayout" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/tv_check_out"
+            android:id="@+id/linearLayout">
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="date"
+                android:ems="10"
+                android:id="@+id/et_data_checkin"
+                android:layout_weight=".33"
+                android:hint="@string/et_data"
+                android:editable="false"
+                android:focusable="false"
+                android:onClick="escolherData"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="time"
+                android:ems="10"
+                android:id="@+id/et_hora_checkin"
+                android:layout_weight=".5"
+                android:hint="@string/et_hora"
+                android:editable="false"
+                android:focusable="false"
+                android:onClick="escolherHora" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_check_out"
+            android:id="@+id/tv_check_out"
+            android:layout_alignTop="@+id/linearLayout2"
+            android:layout_alignParentStart="true" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/linearLayout2"
+            android:layout_below="@+id/linearLayout"
+            android:layout_toEndOf="@+id/tv_check_out">
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="date"
+                android:ems="10"
+                android:id="@+id/et_data_checkout"
+                android:hint="@string/et_data"
+                android:editable="false"
+                android:focusable="false"
+                android:onClick="escolherData"
+                android:layout_weight=".33" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="time"
+                android:ems="10"
+                android:id="@+id/et_hora_checkou"
+                android:hint="@string/et_hora"
+                android:editable="false"
+                android:focusable="false"
+                android:onClick="escolherHora"
+                android:layout_weight=".5" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:inputType="textCapSentences|textMultiLine"
+        android:ems="10"
+        android:id="@+id/et_comentario_hospedagem"
+        android:hint="@string/et_descricao"
+        android:layout_weight="0.15" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/bt_concliur"
+        android:id="@+id/bt_concluir_hospedagem"
+        android:layout_gravity="right"
+        android:onClick="btConcluirHospedagem" />
+
+</LinearLayout>

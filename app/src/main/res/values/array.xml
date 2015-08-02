@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="opcoes_array">
+        <item>Despesas</item>
+        <item>Hospedagem</item>
+        <item>Atividades</item>
+        <item>Carteiras de viagem</item>
+        <item>Modo de Viagem</item>
+    </string-array>
+
+    <string-array name="categorias_array">
+        <item>Outros</item>
+        <item>Comes e bebes</item>
+        <item>Compras</item>
+        <item>Passeio turístico</item>
+        <item>Passagens e pedágio</item>
+        <item>Hospedagem</item>
+        <item>Combustível</item>
+        <item>Imprevistos</item>
+    </string-array>
+
+    <string-array name="tipo_viagem_array">
+        <item>Pessoal</item>
+        <item>Trabalho</item>
+    </string-array>
+
+    <string-array name="modo_viagem_array">
+        <item>Nenhum</item>
+        <item>Avião</item>
+        <item>Ônibus</item>
+        <item>Carro</item>
+        <item>Trem</item>
+        <item>Cruzeiro</item>
+    </string-array>
+
+</resources>

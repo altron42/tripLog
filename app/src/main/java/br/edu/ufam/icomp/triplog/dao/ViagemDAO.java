@@ -6,6 +6,8 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.sql.Struct;
+
 import br.edu.ufam.icomp.triplog.model.Viagem;
 import br.edu.ufam.icomp.triplog.util.BancoDeDados;
 
@@ -57,6 +59,40 @@ public class ViagemDAO {
             return true;
         } catch (SQLException e) {
             Log.e("TripLogDB", e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean editViagem(Viagem viagem) {
+        try {
+            String query = "UPDATE Viagens SET " +
+                    BancoDeDados.VIAGEM_COL_NOME + "='" + viagem.getNome() + "', " +
+                    BancoDeDados.VIAGEM_COL_COMECO + "='" + viagem.getComeco() + "', " +
+                    BancoDeDados.VIAGEM_COL_FIM + "='" + viagem.getFim() + "', " +
+                    BancoDeDados.VIAGEM_COL_DETALHES + "='" + viagem.getDetalhes() + "', " +
+                    BancoDeDados.VIAGEM_COL_TIPO + "=" + viagem.getTipo() + ", " +
+                    BancoDeDados.VIAGEM_COL_ICONE + "='" + viagem.getIcone() + "' " +
+                    "WHERE rowid=" + viagem.getId();
+            this.bancoDeDados.execSQL(query);
+            return true;
+        } catch (SQLException e) {
+            Log.e("TripLogDB", e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean delViagem(int id) {
+        if (new CarteiraDAO(bancoDeDados).delCarteiras(id)) {
+            try {
+
+                String query = "DELETE FROM Viagens WHERE rowid=" + id;
+                this.bancoDeDados.execSQL(query);
+                return true;
+            } catch (SQLException e) {
+                Log.e("TripLogDB", e.getMessage());
+                return false;
+            }
+        } else {
             return false;
         }
     }

@@ -2,19 +2,65 @@
     <string name="app_name">TripLog</string>
 
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_nova_viagem">Nova Viagem</string>
-    <string name="et_nome_viagem">Nome da viagem</string>
-    <string name="et_descricao">Descricao</string>
-    <string name="rb_pessoal">Pessoal</string>
-    <string name="rb_negocios">Negócios</string>
-    <string name="tv_tipo">Tipo de viagem</string>
-    <string name="action_nova_viagem">Nova Viagem</string>
-    <string name="et_comeco_viagem">Data inicial</string>
-    <string name="et_fim_viagem">Data do término</string>
-    <string name="bt_concliur">Concluir</string>
-    <string name="title_activity_principal_viagem">Viagem</string>
 
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="action_settings">Configurações</string>
+    <string name="action_nova_viagem">Nova Viagem</string>
+
+    <string name="title_activity_nova_viagem">Nova Viagem</string>
+    <string name="title_activity_principal_viagem">Viagem</string>
+    <string name="title_activity_despesas">Despesas</string>
+
+    <string name="et_nome_viagem">Nome da viagem</string>
+    <string name="et_descricao">Comentário</string>
+    <string name="et_comeco_viagem">Data começa</string>
+    <string name="et_fim_viagem">Data termina</string>
+
+    <string name="rb_tipo_viagem_pessoal">Pessoal</string>
+    <string name="rb_tipo_viagem_trabalho">Trabalho</string>
+
+    <string name="tv_tipo_viagem">Tipo de viagem</string>
+    <string name="tv_categoria">Categoria</string>
+    <string name="tv_orcamento">Orçamento disponível:</string>
+    <string name="tv_valor_gasto">Valor</string>
+    <string name="tv_item_gasto">Item</string>
+    <string name="tv_data">Data</string>
+
+    <string name="bt_concliur">Concluir</string>
+    <string name="cab_delete">Apagar</string>
+    <string name="cab_edit">Editar</string>
+    <string name="title_activity_nova_carteira">Nova Carteira</string>
+    <string name="et_nome_carteira">Nome da Carteira</string>
+    <string name="et_valor_carteira">Valor disponível</string>
+    <string name="et_nome_carteira_ex">Ex: dinheiro para lazer, cartão de crédito, etc...</string>
+
+    <string name="title_activity_nova_despesa">Nova despesa</string>
+    <string name="et_categoria_gasto">Categoria</string>
+    <string name="et_pago_com">Pago com</string>
+    <string name="action_nova_despesa">Nova despesa</string>
+    <string name="title_activity_carteiras">Carteiras de Viagem</string>
+    <string name="action_nova_carteira">Nova carteira</string>
+    <string name="title_activity_selecionar_imagem">Selecionar Imagem</string>
+    <string name="bt_selecionar_imagem">Selecionar Imagem</string>
+    <string name="title_activity_novo_modo_viagem">Novo Modo de Viagem</string>
+    <string name="tv_partida">Partida</string>
+    <string name="tv_chegada">Chagada</string>
+    <string name="et_de">De:</string>
+    <string name="et_chegada">Para:</string>
+    <string name="et_data">Data</string>
+    <string name="et_hora">Hora</string>
+    <string name="et_detalhes_modo_viagem">Detalhes etc</string>
+    <string name="tv_modo_viagem">Selecione como vai viajar:</string>
+    <string name="title_activity_nova_hospedagem">Nova Hospedagem</string>
+    <string name="tv_check_in">Check-In</string>
+    <string name="tv_check_out">Check-Out</string>
+    <string name="title_activity_hospedagem">Hospedagem</string>
+
+    <string name="action_nova_hospedagem">Add hospedagem</string>
+    <string name="title_activity_modo_viagem">Modos de Viagem</string>
+    <string name="action_novo_modo">Add modo de viagem</string>
+    <string name="title_activity_atividade">Atividades</string>
+    <string name="action_nova_atividade">Nova atividade</string>
+    <string name="title_activity_nova_atividade">Nova Atividade</string>
+    <string name="et_nome_atividade">Noma da atividade</string>
+
 </resources>
